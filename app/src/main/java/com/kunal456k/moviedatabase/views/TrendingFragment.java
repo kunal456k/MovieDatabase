@@ -1,19 +1,36 @@
 package com.kunal456k.moviedatabase.views;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kunal456k.moviedatabase.R;
+import com.kunal456k.moviedatabase.viewModels.TrendingViewModel;
+
+import javax.inject.Inject;
 
 public class TrendingFragment extends Fragment {
 
+    @Inject TrendingViewModel trendingViewModel;
+
     public TrendingFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((HomeActivity)requireActivity()).homeComponent.inject(this);
     }
 
     @Override

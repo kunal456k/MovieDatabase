@@ -11,7 +11,8 @@
         android:theme="@style/Theme.MovieDatabase">
         <activity
             android:name=".views.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
