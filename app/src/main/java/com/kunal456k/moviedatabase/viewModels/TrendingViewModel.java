@@ -1,30 +1,48 @@
 package com.kunal456k.moviedatabase.viewModels;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.kunal456k.moviedatabase.models.NowPlayingMovies;
-import com.kunal456k.moviedatabase.models.TrendingMovies;
+import com.kunal456k.moviedatabase.models.Movie;
 import com.kunal456k.moviedatabase.repository.MoviesRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
-public class TrendingViewModel extends BaseViewModel {
+public class TrendingViewModel extends ViewModel {
 
-    private final MutableLiveData<TrendingMovies> trendingMovies = new MutableLiveData<>();
-    private final MutableLiveData<NowPlayingMovies> nowPlaying = new MutableLiveData<>();
+    private final MoviesRepository moviesRepository;
 
-    private MoviesRepository moviesRepository;
+    private LiveData<List<Movie>> nowPlayingMovies;
+    private LiveData<List<Movie>> trendingMovies;
+    private LiveData<String> failedTrendingStatus;
+    private LiveData<String> failedNowPlayingStatus;
 
     @Inject
     public TrendingViewModel(MoviesRepository moviesRepository){
         this.moviesRepository = moviesRepository;
     }
 
-    public MutableLiveData<TrendingMovies> getTrendingMovies() {
+    public LiveData<List<Movie>> getTrendingMovies() {
+        trendingMovies = moviesRepository.trendingMovies;
+        moviesRepository.getTrending();
         return trendingMovies;
     }
 
-    public MutableLiveData<NowPlayingMovies> getNowPlaying() {
-        return nowPlaying;
+    public LiveData<String> getFailedTrendingStatus() {
+        failedTrendingStatus = moviesRepository.failedTrendingStatus;
+        return failedTrendingStatus;
+    }
+
+    public LiveData<String> getFailedNowPlayingStatus() {
+        failedNowPlayingStatus = moviesRepository.failedNowPlayingStatus;
+        return failedNowPlayingStatus;
+    }
+
+    public LiveData<List<Movie>> getNowPlayingMovies(){
+        nowPlayingMovies = moviesRepository.nowPlayingMovies;
+        moviesRepository.getNowPlaying();
+        return nowPlayingMovies;
     }
 }

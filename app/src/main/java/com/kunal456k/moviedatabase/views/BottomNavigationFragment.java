@@ -1,6 +1,5 @@
 package com.kunal456k.moviedatabase.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.kunal456k.moviedatabase.R;
+import com.kunal456k.moviedatabase.databinding.FragmentBottomNavigationBinding;
 import com.kunal456k.moviedatabase.viewModels.NavigationViewModel;
 
 import javax.inject.Inject;
@@ -20,6 +18,8 @@ import javax.inject.Inject;
 public class BottomNavigationFragment extends Fragment {
 
     @Inject NavigationViewModel navigationViewModel;
+
+    private FragmentBottomNavigationBinding binding;
 
     public BottomNavigationFragment() {
         // Required empty public constructor
@@ -37,24 +37,24 @@ public class BottomNavigationFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bottom_navigation, container, false);
+        binding = FragmentBottomNavigationBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init(view);
+        init();
     }
 
-    private void init(View view) {
-        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(navigationViewModel);
+    private void init() {
+        binding.bottomNavigation.setOnItemSelectedListener(navigationViewModel);
         navigationViewModel.getNavigationId().observe(getViewLifecycleOwner(), selectionId -> {
-            if (selectionId != bottomNavigationView.getSelectedItemId()){
-                bottomNavigationView.setSelectedItemId(selectionId);
+            if (selectionId != binding.bottomNavigation.getSelectedItemId()){
+                binding.bottomNavigation.setSelectedItemId(selectionId);
             }
         });
     }

@@ -15,7 +15,7 @@ public class MovieDatabaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         applicationComponent = DaggerApplicationComponent.builder()
-                .networkModule(new NetworkModule(Constants.TMDB_API_BASE_URL, Constants.NETWORK_CACHE_SIZE))
+                .networkModule(new NetworkModule())
                 .appModule(new AppModule(this))
                 .build();
     }
