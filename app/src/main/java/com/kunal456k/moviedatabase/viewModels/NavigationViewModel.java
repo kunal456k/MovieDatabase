@@ -7,13 +7,14 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import com.google.android.material.navigation.NavigationBarView;
 import com.kunal456k.moviedatabase.R;
+import com.kunal456k.moviedatabase.components.ActivityScope;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
+@ActivityScope
 public class NavigationViewModel extends ViewModel implements NavigationBarView.OnItemSelectedListener{
     private static final String TAG = NavigationViewModel.class.getSimpleName();
 

@@ -9,9 +9,10 @@ import com.kunal456k.moviedatabase.views.TrendingFragment;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.Subcomponent;
 
-@Singleton
-@Component
+@ActivityScope
+@Subcomponent
 public interface HomeComponent {
 
     void inject(HomeActivity homeActivity);

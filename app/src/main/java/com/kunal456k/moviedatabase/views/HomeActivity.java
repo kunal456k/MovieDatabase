@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.kunal456k.moviedatabase.MovieDatabaseApplication;
 import com.kunal456k.moviedatabase.R;
-import com.kunal456k.moviedatabase.components.DaggerHomeComponent;
 import com.kunal456k.moviedatabase.components.HomeComponent;
 import com.kunal456k.moviedatabase.viewModels.NavigationViewModel;
 
@@ -20,14 +20,14 @@ public class HomeActivity extends AppCompatActivity {
 
     private NavController navController;
 
-    HomeComponent homeComponent;
 
+    HomeComponent homeComponent;
     @Inject NavigationViewModel navigationViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        homeComponent = DaggerHomeComponent.create();
+        homeComponent = ((MovieDatabaseApplication)getApplication()).getApplicationComponent().getHomeComponent();
         homeComponent.inject(this);
         setContentView(R.layout.activity_main);
         initModels();
