@@ -3,10 +3,10 @@
 
     <data>
         <variable
-            name="trendingStatus"
+            name="trendingFailed"
             type="java.lang.String" />
         <variable
-            name="nowPlayingStatus"
+            name="nowPlayingFailed"
             type="java.lang.String" />
     </data>
 
@@ -45,7 +45,7 @@
                 android:gravity="center"
                 android:id="@+id/trending_status"
                 android:textAlignment="gravity"
-                android:text="@{trendingStatus}"/>
+                android:text="@{trendingFailed}"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:layout_marginVertical="20dp"
                 android:layout_below="@id/trending_status"
                 android:textAlignment="gravity"
-                android:text="@{nowPlayingStatus}"/>
+                android:text="@{nowPlayingFailed}"/>
         </RelativeLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
