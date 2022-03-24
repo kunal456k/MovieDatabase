@@ -1,4 +1,4 @@
-package com.kunal456k.moviedatabase.views;
+package com.kunal456k.moviedatabase.views.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     HomeComponent homeComponent;
+
     @Inject NavigationViewModel navigationViewModel;
 
     @Override
@@ -64,5 +65,9 @@ public class HomeActivity extends AppCompatActivity {
         }else {
             Log.d(TAG, "navigateFragment: unknown navigation request");
         }
+    }
+
+    public HomeComponent getHomeComponent() {
+        return homeComponent;
     }
 }

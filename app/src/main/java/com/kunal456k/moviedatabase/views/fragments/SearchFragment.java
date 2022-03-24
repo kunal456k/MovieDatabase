@@ -1,4 +1,4 @@
-package com.kunal456k.moviedatabase.views;
+package com.kunal456k.moviedatabase.views.fragments;
 
 import android.os.Bundle;
 

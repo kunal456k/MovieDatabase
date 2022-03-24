@@ -6,17 +6,17 @@
     app:startDestination="@id/trending_fragment">
 
     <fragment android:id="@+id/trending_fragment"
-        android:name="com.kunal456k.moviedatabase.views.TrendingFragment"
+        android:name="com.kunal456k.moviedatabase.views.fragments.HomeFragment"
         android:label="@string/trending"
-        tools:layout="@layout/fragment_trending"/>
+        tools:layout="@layout/fragment_home"/>
 
     <fragment android:id="@+id/search_fragment"
-        android:name="com.kunal456k.moviedatabase.views.SearchFragment"
+        android:name="com.kunal456k.moviedatabase.views.fragments.SearchFragment"
         android:label="@string/search_movie"
         tools:layout="@layout/fragment_search"/>
 
     <fragment android:id="@+id/bookmarks_fragment"
-        android:name="com.kunal456k.moviedatabase.views.BookmarksFragment"
+        android:name="com.kunal456k.moviedatabase.views.fragments.BookmarksFragment"
         android:label="@string/bookmarks"
         tools:layout="@layout/fragment_bookmarks"/>
 

@@ -1,4 +1,4 @@
-package com.kunal456k.moviedatabase.views;
+package com.kunal456k.moviedatabase.views.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,25 +10,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.kunal456k.moviedatabase.databinding.FragmentTrendingBinding;
-import com.kunal456k.moviedatabase.viewModels.TrendingViewModel;
+import com.kunal456k.moviedatabase.databinding.FragmentBottomNavigationBinding;
+import com.kunal456k.moviedatabase.viewModels.NavigationViewModel;
+import com.kunal456k.moviedatabase.views.activity.HomeActivity;
 
 import javax.inject.Inject;
 
-public class TrendingFragment extends Fragment {
+public class BottomNavigationFragment extends Fragment {
 
-    @Inject TrendingViewModel trendingViewModel;
+    @Inject NavigationViewModel navigationViewModel;
 
-    private FragmentTrendingBinding binding;
+    private FragmentBottomNavigationBinding binding;
 
-    public TrendingFragment() {
+    public BottomNavigationFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity)requireActivity()).homeComponent.inject(this);
+        ((HomeActivity)requireActivity()).getHomeComponent().inject(this);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class TrendingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentTrendingBinding.inflate(inflater);
+        binding = FragmentBottomNavigationBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -51,7 +52,11 @@ public class TrendingFragment extends Fragment {
     }
 
     private void init() {
-        trendingViewModel.getTrendingMovies();
-        trendingViewModel.getNowPlayingMovies();
+        binding.bottomNavigation.setOnItemSelectedListener(navigationViewModel);
+        navigationViewModel.getNavigationId().observe(getViewLifecycleOwner(), selectionId -> {
+            if (selectionId != binding.bottomNavigation.getSelectedItemId()){
+                binding.bottomNavigation.setSelectedItemId(selectionId);
+            }
+        });
     }
 }

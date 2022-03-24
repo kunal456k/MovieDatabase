@@ -1,5 +1,7 @@
 package com.kunal456k.moviedatabase.viewModels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -10,14 +12,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class TrendingViewModel extends ViewModel {
+public class TrendingViewModel extends MovieViewModel {
 
     private final MoviesRepository moviesRepository;
-
-    private LiveData<List<Movie>> nowPlayingMovies;
-    private LiveData<List<Movie>> trendingMovies;
-    private LiveData<String> failedTrendingStatus;
-    private LiveData<String> failedNowPlayingStatus;
 
     @Inject
     public TrendingViewModel(MoviesRepository moviesRepository){
@@ -25,24 +22,13 @@ public class TrendingViewModel extends ViewModel {
     }
 
     public LiveData<List<Movie>> getTrendingMovies() {
-        trendingMovies = moviesRepository.trendingMovies;
+        movies = moviesRepository.trendingMovies;
         moviesRepository.getTrending();
-        return trendingMovies;
+        return movies;
     }
 
     public LiveData<String> getFailedTrendingStatus() {
-        failedTrendingStatus = moviesRepository.failedTrendingStatus;
-        return failedTrendingStatus;
-    }
-
-    public LiveData<String> getFailedNowPlayingStatus() {
-        failedNowPlayingStatus = moviesRepository.failedNowPlayingStatus;
-        return failedNowPlayingStatus;
-    }
-
-    public LiveData<List<Movie>> getNowPlayingMovies(){
-        nowPlayingMovies = moviesRepository.nowPlayingMovies;
-        moviesRepository.getNowPlaying();
-        return nowPlayingMovies;
+        failedStatus = moviesRepository.failedTrendingStatus;
+        return failedStatus;
     }
 }

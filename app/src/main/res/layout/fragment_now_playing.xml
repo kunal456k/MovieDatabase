@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="trendingViewModel"
-            type="com.kunal456k.moviedatabase.viewModels.TrendingViewModel" />
+            name="nowPlayingViewModel"
+            type="com.kunal456k.moviedatabase.viewModels.NowPlayingViewModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,32 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".views.fragments.TrendingFragment">
+        tools:context=".views.fragments.NowPlayingFragment">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/trending"
-            android:id="@+id/trending_header"
+            android:text="@string/now_playing"
+            android:id="@+id/now_playing_header"
             android:layout_margin="10dp"
             android:textSize="24sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trending_now_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/trending_header"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_below="@id/now_playing_header"
+            android:id="@+id/playing_now_recycler"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:gravity="center"
             android:layout_centerInParent="true"
-            android:id="@+id/trending_status"
+            android:gravity="center"
             android:textAlignment="gravity"
-            android:text="@{trendingViewModel.failedTrendingStatus}"/>
+            android:text="@{nowPlayingViewModel.failedNowPlayingStatus}"/>
+
     </RelativeLayout>
 </layout>

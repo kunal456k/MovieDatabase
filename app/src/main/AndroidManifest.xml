@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieDatabase">
         <activity
-            android:name=".views.HomeActivity"
+            android:name=".views.activity.HomeActivity"
             android:exported="true"
             android:screenOrientation="locked">
             <intent-filter>
