@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/now_playing"
             android:id="@+id/now_playing_header"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:textSize="24sp"/>
 
         <androidx.recyclerview.widget.RecyclerView

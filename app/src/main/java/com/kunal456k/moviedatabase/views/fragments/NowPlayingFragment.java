@@ -23,11 +23,10 @@ import javax.inject.Inject;
 
 public class NowPlayingFragment extends Fragment {
 
-    @Inject
-    NowPlayingViewModel nowPlayingViewModel;
+    @Inject NowPlayingViewModel nowPlayingViewModel;
+    @Inject MovieAdapter adapter;
 
     private FragmentNowPlayingBinding binding;
-    private MovieAdapter adapter;
 
     public NowPlayingFragment() {
         // Required empty public constructor
@@ -57,15 +56,11 @@ public class NowPlayingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setNowPlayingViewModel(nowPlayingViewModel);
+        binding.playingNowRecycler.setAdapter(adapter);
         nowPlayingViewModel.getNowPlayingMovies().observe(getViewLifecycleOwner(), this::onNowPlayingMoviesUpdate);
     }
 
     private void onNowPlayingMoviesUpdate(List<Movie> movies) {
-        if (adapter == null){
-            adapter = new MovieAdapter(movies);
-            binding.playingNowRecycler.setAdapter(adapter);
-        }else {
-            adapter.update(movies);
-        }
+        adapter.update(movies);
     }
 }

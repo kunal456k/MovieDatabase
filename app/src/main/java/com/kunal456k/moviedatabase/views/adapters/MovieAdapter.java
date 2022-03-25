@@ -5,20 +5,35 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kunal456k.moviedatabase.databinding.MovieRecyclerItemLayoutBinding;
-import com.kunal456k.moviedatabase.helpers.MovieDiffUtillCallback;
 import com.kunal456k.moviedatabase.models.Movie;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>{
+import javax.inject.Inject;
 
-    private List<Movie> movies;
+public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolder> {
 
-    public MovieAdapter(List<Movie> movies){
-        this.movies = movies;
+    private static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+            return oldItem.getMovieId() == newItem.getMovieId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+            return oldItem.getMovieId() == newItem.getMovieId() &&
+                    oldItem.getRating() == newItem.getRating() &&
+                    oldItem.getTitle().equals(newItem.getTitle());
+        }
+    };
+
+    @Inject
+    public MovieAdapter(){
+        super(DIFF_CALLBACK);
     }
 
     @NonNull
@@ -30,19 +45,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.binding.setMovie(movies.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return movies.size();
+        holder.binding.setMovie(getItem(position));
     }
 
     public void update(List<Movie> movies){
-        MovieDiffUtillCallback myDiffUtillCallback = new MovieDiffUtillCallback(this.movies, movies);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(myDiffUtillCallback);
-        this.movies = movies;
-        diffResult.dispatchUpdatesTo(this);
+        submitList(movies);
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {

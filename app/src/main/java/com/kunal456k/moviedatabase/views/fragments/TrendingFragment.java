@@ -2,6 +2,7 @@ package com.kunal456k.moviedatabase.views.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,9 @@ public class TrendingFragment extends Fragment {
 
     @Inject
     TrendingViewModel trendingViewModel;
+    @Inject MovieAdapter adapter;
 
     private FragmentTrendingBinding binding;
-    private MovieAdapter adapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -57,15 +58,11 @@ public class TrendingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setTrendingViewModel(trendingViewModel);
+        binding.trendingNowRecycler.setAdapter(adapter);
         trendingViewModel.getTrendingMovies().observe(getViewLifecycleOwner(), this::onTrendingMoviesUpdate);
     }
 
     private void onTrendingMoviesUpdate(List<Movie> movies) {
-        if (adapter == null){
-            adapter = new MovieAdapter(movies);
-            binding.trendingNowRecycler.setAdapter(adapter);
-        }else {
-            adapter.update(movies);
-        }
+        adapter.update(movies);
     }
 }

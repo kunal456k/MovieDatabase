@@ -1,8 +1,8 @@
 package com.kunal456k.moviedatabase.repository;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kunal456k.moviedatabase.components.ActivityScope;
@@ -15,9 +15,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @ActivityScope
 public class MoviesRepository {
@@ -35,40 +35,20 @@ public class MoviesRepository {
         this.movieApi = movieApi;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressLint("CheckResult")
     public void getTrending(){
-        movieApi.getTrendingMovies().enqueue(new Callback<TrendingResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<TrendingResponse> call, @NonNull Response<TrendingResponse> response) {
-                if (response.body() != null && response.body().getMovies().size() != 0){
-                    onTrendingFetchSuccess(response.body().getMovies());
-                }else {
-                    onTrendingFetchError(null);
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<TrendingResponse> call, @NonNull Throwable t) {
-                onTrendingFetchError(t);
-            }
-        });
+        Observable<TrendingResponse> observable = movieApi.getTrendingMovies();
+        Observable<List<Movie>> listObservable = observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map(TrendingResponse::getMovies);
+        listObservable.subscribe(this::onTrendingFetchSuccess, this::onTrendingFetchError);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressLint("CheckResult")
     public void getNowPlaying() {
-        movieApi.getNowPlayingMovies().enqueue(new Callback<NowPlayingResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<NowPlayingResponse> call, @NonNull Response<NowPlayingResponse> response) {
-                if (response.body() != null && response.body().getMovies().size() != 0){
-                    onNowPlayingFetchSuccess(response.body().getMovies());
-                }else {
-                    onNowPlayingFetchError(null);
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<NowPlayingResponse> call, @NonNull Throwable t) {
-                onNowPlayingFetchError(t);
-            }
-        });
+        Observable<NowPlayingResponse> responseObservable = movieApi.getNowPlayingMovies();
+        responseObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .map(NowPlayingResponse::getMovies).subscribe(this::onNowPlayingFetchSuccess, this::onNowPlayingFetchError);
     }
 
     private void onNowPlayingFetchError(Throwable t) {
@@ -83,6 +63,10 @@ public class MoviesRepository {
     }
 
     private void onNowPlayingFetchSuccess(List<Movie> movies) {
+        if (movies == null){
+            onNowPlayingFetchError(null);
+            return;
+        }
         Log.d(TAG, "onNowPlayingFetchSuccess: ");
         failedNowPlayingStatus.postValue("");
         nowPlayingMovies.postValue(movies);
@@ -100,6 +84,10 @@ public class MoviesRepository {
     }
 
     private void onTrendingFetchSuccess(List<Movie> movies) {
+        if (movies == null){
+            onTrendingFetchError(null);
+            return;
+        }
         Log.d(TAG, "onTrendingFetchSuccess: ");
         failedTrendingStatus.postValue("");
         trendingMovies.postValue(movies);
