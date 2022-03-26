@@ -4,18 +4,20 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kunal456k.moviedatabase.databinding.MovieRecyclerItemLayoutBinding;
+import com.kunal456k.moviedatabase.interfaces.OnMovieClickListener;
 import com.kunal456k.moviedatabase.models.Movie;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolder> {
+public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolder>{
 
     private static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
         @Override
@@ -30,17 +32,18 @@ public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolde
                     oldItem.getTitle().equals(newItem.getTitle());
         }
     };
+    private final OnMovieClickListener onMovieClickListener;
 
-    @Inject
-    public MovieAdapter(){
+    public MovieAdapter(@Nullable OnMovieClickListener onMovieClickListener){
         super(DIFF_CALLBACK);
+        this.onMovieClickListener = onMovieClickListener;
     }
 
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         MovieRecyclerItemLayoutBinding binding = MovieRecyclerItemLayoutBinding.inflate(LayoutInflater.from(parent.getContext()));
-        return new MovieViewHolder(binding);
+        return new MovieViewHolder(binding, onMovieClickListener);
     }
 
     @Override
@@ -56,9 +59,10 @@ public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolde
 
         private final MovieRecyclerItemLayoutBinding binding;
 
-        public MovieViewHolder(@NonNull MovieRecyclerItemLayoutBinding binding) {
+        public MovieViewHolder(@NonNull MovieRecyclerItemLayoutBinding binding, OnMovieClickListener onMovieClickListener) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(v -> onMovieClickListener.onMovieClick(binding.getMovie().getMovieId()));
         }
     }
 }

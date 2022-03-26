@@ -4,22 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activity.HomeActivity">
+    tools:context=".views.activity.HomePage">
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/home_content_view"
+        android:id="@+id/movie_navigation_controller"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/home_screen_navigation"
-        android:layout_above="@id/bottom_navigation_view"
+        app:navGraph="@navigation/movie_navigation_graph"
         tools:ignore="FragmentTagUsage" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/bottom_navigation_view"
-        android:layout_alignParentBottom="true"
-        android:name="com.kunal456k.moviedatabase.views.fragments.BottomNavigationFragment" />
 
 </RelativeLayout>

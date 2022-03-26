@@ -7,20 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.kunal456k.moviedatabase.databinding.FragmentBottomNavigationBinding;
-import com.kunal456k.moviedatabase.viewModels.NavigationViewModel;
-import com.kunal456k.moviedatabase.views.activity.HomeActivity;
+import com.kunal456k.moviedatabase.viewModels.BottomNavigationViewModel;
+import com.kunal456k.moviedatabase.views.activity.HomePage;
 
 import javax.inject.Inject;
 
 public class BottomNavigationFragment extends Fragment {
 
-    @Inject NavigationViewModel navigationViewModel;
-
-    private FragmentBottomNavigationBinding binding;
+    @Inject
+    BottomNavigationViewModel bottomNavigationViewModel;
 
     public BottomNavigationFragment() {
         // Required empty public constructor
@@ -29,7 +27,7 @@ public class BottomNavigationFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity)requireActivity()).getHomeComponent().inject(this);
+        ((HomePage)requireActivity()).getHomeComponent().inject(this);
     }
 
     @Override
@@ -41,22 +39,17 @@ public class BottomNavigationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentBottomNavigationBinding.inflate(inflater);
-        return binding.getRoot();
+        return init(inflater);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        init();
-    }
-
-    private void init() {
-        binding.bottomNavigation.setOnItemSelectedListener(navigationViewModel);
-        navigationViewModel.getNavigationId().observe(getViewLifecycleOwner(), selectionId -> {
+    private View init(LayoutInflater inflater) {
+        FragmentBottomNavigationBinding binding = FragmentBottomNavigationBinding.inflate(inflater);
+        binding.bottomNavigation.setOnItemSelectedListener(bottomNavigationViewModel);
+        bottomNavigationViewModel.getNavigationId().observe(getViewLifecycleOwner(), selectionId -> {
             if (selectionId != binding.bottomNavigation.getSelectedItemId()){
                 binding.bottomNavigation.setSelectedItemId(selectionId);
             }
         });
+        return binding.getRoot();
     }
 }

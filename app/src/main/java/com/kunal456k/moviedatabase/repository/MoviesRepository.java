@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.kunal456k.moviedatabase.components.ActivityScope;
 import com.kunal456k.moviedatabase.models.Movie;
+import com.kunal456k.moviedatabase.models.MovieDetails;
 import com.kunal456k.moviedatabase.models.NowPlayingResponse;
 import com.kunal456k.moviedatabase.models.TrendingResponse;
 import com.kunal456k.moviedatabase.services.MovieApi;
@@ -29,6 +30,7 @@ public class MoviesRepository {
     public MutableLiveData<List<Movie>> nowPlayingMovies = new MutableLiveData<>();
     public MutableLiveData<String> failedTrendingStatus = new MutableLiveData<>();
     public MutableLiveData<String> failedNowPlayingStatus = new MutableLiveData<>();
+    public MutableLiveData<MovieDetails> movieDetailsLiveData = new MutableLiveData<>();
 
     @Inject
     public MoviesRepository(MovieApi movieApi){
@@ -91,5 +93,21 @@ public class MoviesRepository {
         Log.d(TAG, "onTrendingFetchSuccess: ");
         failedTrendingStatus.postValue("");
         trendingMovies.postValue(movies);
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressLint("CheckResult")
+    public void getMovieDetails(int movieId) {
+        Observable<MovieDetails> responseObservable = movieApi.getMovieDetails(movieId);
+        responseObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onMovieDetailsSuccess, this::onMovieDetailsError);
+    }
+
+    private void onMovieDetailsError(Throwable throwable) {
+        Log.d(TAG, "onMovieDetailsError: unable to fetch movie details");
+    }
+
+    private void onMovieDetailsSuccess(MovieDetails movieDetails) {
+        movieDetailsLiveData.postValue(movieDetails);
     }
 }

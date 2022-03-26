@@ -15,27 +15,26 @@ import com.kunal456k.moviedatabase.components.ActivityScope;
 import javax.inject.Inject;
 
 @ActivityScope
-public class NavigationViewModel extends ViewModel implements NavigationBarView.OnItemSelectedListener{
-    private static final String TAG = NavigationViewModel.class.getSimpleName();
+public class BottomNavigationViewModel extends ViewModel implements NavigationBarView.OnItemSelectedListener{
+    private static final String TAG = BottomNavigationViewModel.class.getSimpleName();
 
     private final MutableLiveData<Integer> navigationId = new MutableLiveData<>();
     private final MutableLiveData<Boolean> exitPress = new MutableLiveData<>(false);
-
-    @Inject
-    public NavigationViewModel(){
-
-    }
-
-    private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+    public final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
         @Override
         public void handleOnBackPressed() {
-            if (navigationId.getValue() == null || navigationId.getValue() != R.id.navigation_home){
-                navigationId.setValue(R.id.navigation_home);
-            }else {
+            if (navigationId.getValue() == null || navigationId.getValue() == R.id.navigation_home){
                 exitPress.setValue(true);
+            }else {
+                navigationId.setValue(R.id.navigation_home);
             }
         }
     };
+
+    @Inject
+    public BottomNavigationViewModel(){
+
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -46,10 +45,6 @@ public class NavigationViewModel extends ViewModel implements NavigationBarView.
 
     public MutableLiveData<Integer> getNavigationId() {
         return navigationId;
-    }
-
-    public OnBackPressedCallback getOnBackPressCallBack(){
-        return onBackPressedCallback;
     }
 
     public MutableLiveData<Boolean> getExitPress() {

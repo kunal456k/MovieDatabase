@@ -2,19 +2,20 @@ package com.kunal456k.moviedatabase.views.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.kunal456k.moviedatabase.databinding.FragmentTrendingBinding;
 import com.kunal456k.moviedatabase.models.Movie;
-import com.kunal456k.moviedatabase.viewModels.TrendingViewModel;
-import com.kunal456k.moviedatabase.views.activity.HomeActivity;
 import com.kunal456k.moviedatabase.viewAdapters.MovieAdapter;
+import com.kunal456k.moviedatabase.viewModels.MovieNavigationViewModel;
+import com.kunal456k.moviedatabase.viewModels.TrendingViewModel;
+import com.kunal456k.moviedatabase.views.activity.HomePage;
 
 import java.util.List;
 
@@ -22,17 +23,17 @@ import javax.inject.Inject;
 
 
 public class TrendingFragment extends Fragment {
+    private static final String TAG = TrendingFragment.class.getSimpleName();
 
-    @Inject
-    TrendingViewModel trendingViewModel;
-    @Inject MovieAdapter adapter;
+    @Inject TrendingViewModel trendingViewModel;
+    @Inject MovieNavigationViewModel movieNavigationViewModel;
 
-    private FragmentTrendingBinding binding;
+    private MovieAdapter adapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((HomeActivity)requireActivity()).getHomeComponent().inject(this);
+        ((HomePage)requireActivity()).getHomeComponent().inject(this);
     }
 
     public TrendingFragment() {
@@ -48,17 +49,23 @@ public class TrendingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentTrendingBinding.inflate(inflater);
+        return init(inflater);
+    }
+
+    @NonNull
+    private View init(LayoutInflater inflater) {
+        FragmentTrendingBinding binding = FragmentTrendingBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
+        binding.setTrendingViewModel(trendingViewModel);
+        adapter = new MovieAdapter(this::onMovieSelected);
+        binding.trendingNowRecycler.setAdapter(adapter);
+        trendingViewModel.getTrendingMovies().observe(getViewLifecycleOwner(), this::onTrendingMoviesUpdate);
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        binding.setTrendingViewModel(trendingViewModel);
-        binding.trendingNowRecycler.setAdapter(adapter);
-        trendingViewModel.getTrendingMovies().observe(getViewLifecycleOwner(), this::onTrendingMoviesUpdate);
+    private void onMovieSelected(int movieId) {
+        Log.d(TAG, "onMovieSelected: "+movieId);
+        movieNavigationViewModel.setMovieId(movieId);
     }
 
     private void onTrendingMoviesUpdate(List<Movie> movies) {

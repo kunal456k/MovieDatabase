@@ -34,14 +34,13 @@ public class MovieSearchRepository {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
-    public void performSearch(CharSequence search) {
-        String searchVal = search.toString().trim();
-        if (searchVal.isEmpty()){
+    public void performSearch(String search) {
+        if (search.isEmpty()){
             Log.d(TAG, "performSearch: remove search results");
             searchLiveData.postValue(new ArrayList<>());
             return;
         }
-        Observable<SearchResponse> responseObservable = movieApi.getSearchResponse(searchVal, "en");
+        Observable<SearchResponse> responseObservable = movieApi.getSearchResponse(search, "en");
         responseObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .map(SearchResponse::getMovies).subscribe(this::onSearchSuccess, this::onSearchError);
     }
@@ -55,6 +54,7 @@ public class MovieSearchRepository {
             throwable.printStackTrace();
             failedStatus.postValue("Unable to search, Please check internet connection...");
         }
+        searchLiveData.postValue(new ArrayList<>());
     }
 
     private void onSearchSuccess(List<Movie> movies) {
