@@ -4,7 +4,7 @@
     <data>
         <variable
             name="movie"
-            type="com.kunal456k.moviedatabase.models.Movie" />
+            type="com.kunal456k.moviedatabase.models.MovieDetails" />
     </data>
     <androidx.cardview.widget.CardView
         xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -2,16 +2,16 @@ package com.kunal456k.moviedatabase.helpers;
 
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.kunal456k.moviedatabase.models.Movie;
+import com.kunal456k.moviedatabase.models.MovieDetails;
 
 import java.util.List;
 
 public class MovieDiffUtillCallback extends DiffUtil.Callback{
 
-    List<Movie> newList;
-    List<Movie> oldList;
+    List<MovieDetails> newList;
+    List<MovieDetails> oldList;
 
-    public MovieDiffUtillCallback(List<Movie> oldList, List<Movie> newList) {
+    public MovieDiffUtillCallback(List<MovieDetails> oldList, List<MovieDetails> newList) {
         this.newList = newList;
         this.oldList = oldList;
     }
@@ -33,8 +33,8 @@ public class MovieDiffUtillCallback extends DiffUtil.Callback{
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        Movie oldItem = oldList.get(oldItemPosition);
-        Movie newItem = newList.get(newItemPosition);
+        MovieDetails oldItem = oldList.get(oldItemPosition);
+        MovieDetails newItem = newList.get(newItemPosition);
         return oldItem.getMovieId() == newItem.getMovieId() &&
                 oldItem.getTitle().equals(newItem.getTitle()) &&
                 oldItem.getRating() == newItem.getRating();

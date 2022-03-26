@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.kunal456k.moviedatabase.components.ActivityScope;
 import com.kunal456k.moviedatabase.helpers.ResponseUpdateHelper;
-import com.kunal456k.moviedatabase.models.Movie;
 import com.kunal456k.moviedatabase.models.MovieDetails;
 import com.kunal456k.moviedatabase.models.NowPlayingResponse;
 import com.kunal456k.moviedatabase.models.SearchResponse;
@@ -28,12 +27,12 @@ public class MoviesRepository {
     private static final String TAG = MoviesRepository.class.getSimpleName();
 
     private final MovieApi movieApi;
-    public final MutableLiveData<List<Movie>> trendingMovies = new MutableLiveData<>();
-    public final MutableLiveData<List<Movie>> nowPlayingMovies = new MutableLiveData<>();
+    public final MutableLiveData<List<MovieDetails>> trendingMovies = new MutableLiveData<>();
+    public final MutableLiveData<List<MovieDetails>> nowPlayingMovies = new MutableLiveData<>();
     public final MutableLiveData<String> failedTrendingStatus = new MutableLiveData<>();
     public final MutableLiveData<String> failedNowPlayingStatus = new MutableLiveData<>();
     public final MutableLiveData<MovieDetails> movieDetailsLiveData = new MutableLiveData<>();
-    public final MutableLiveData<List<Movie>> movieSearchLiveData = new MutableLiveData<>();
+    public final MutableLiveData<List<MovieDetails>> movieSearchLiveData = new MutableLiveData<>();
     public final MutableLiveData<String> failedSearchStatus = new MutableLiveData<>();
     public final MutableLiveData<String> failedMovieDetailsStatus = new MutableLiveData<>();
 
@@ -46,7 +45,7 @@ public class MoviesRepository {
     @SuppressLint("CheckResult")
     public void getTrending(){
         Observable<TrendingResponse> observable = movieApi.getTrendingMovies();
-        Observable<List<Movie>> listObservable = observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map(TrendingResponse::getMovies);
+        Observable<List<MovieDetails>> listObservable = observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map(TrendingResponse::getMovies);
         listObservable.subscribe(this::onTrendingFetchSuccess, this::onTrendingFetchError);
     }
 
@@ -69,7 +68,7 @@ public class MoviesRepository {
         }
     }
 
-    private void onNowPlayingFetchSuccess(List<Movie> movies) {
+    private void onNowPlayingFetchSuccess(List<MovieDetails> movies) {
         if (movies == null){
             onNowPlayingFetchError(null);
             return;
@@ -90,7 +89,7 @@ public class MoviesRepository {
         }
     }
 
-    private void onTrendingFetchSuccess(List<Movie> movies) {
+    private void onTrendingFetchSuccess(List<MovieDetails> movies) {
         if (movies == null){
             onTrendingFetchError(null);
             return;
@@ -150,7 +149,7 @@ public class MoviesRepository {
         movieSearchLiveData.postValue(new ArrayList<>());
     }
 
-    private void onSearchSuccess(List<Movie> movies) {
+    private void onSearchSuccess(List<MovieDetails> movies) {
         if (movies == null || movies.size() == 0){
             onSearchError(null);
             return;

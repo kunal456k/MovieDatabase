@@ -10,7 +10,7 @@ public class TrendingResponse implements Serializable {
     @SerializedName("page")
     private int pageNumber;
     @SerializedName("results")
-    private List<Movie> movies;
+    private List<MovieDetails> movies;
 
     public int getPageNumber() {
         return pageNumber;
@@ -20,11 +20,11 @@ public class TrendingResponse implements Serializable {
         this.pageNumber = pageNumber;
     }
 
-    public List<Movie> getMovies() {
+    public List<MovieDetails> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<MovieDetails> movies) {
         this.movies = movies;
     }
 }

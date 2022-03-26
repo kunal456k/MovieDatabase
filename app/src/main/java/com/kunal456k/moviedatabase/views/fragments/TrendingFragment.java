@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.kunal456k.moviedatabase.databinding.FragmentTrendingBinding;
-import com.kunal456k.moviedatabase.models.Movie;
+import com.kunal456k.moviedatabase.models.MovieDetails;
 import com.kunal456k.moviedatabase.viewAdapters.MovieAdapter;
 import com.kunal456k.moviedatabase.viewModels.MovieNavigationViewModel;
 import com.kunal456k.moviedatabase.viewModels.TrendingViewModel;
@@ -68,7 +68,7 @@ public class TrendingFragment extends Fragment {
         movieNavigationViewModel.setMovieId(movieId);
     }
 
-    private void onTrendingMoviesUpdate(List<Movie> movies) {
+    private void onTrendingMoviesUpdate(List<MovieDetails> movies) {
         adapter.update(movies);
     }
 }

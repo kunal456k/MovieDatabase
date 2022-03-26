@@ -12,22 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kunal456k.moviedatabase.databinding.MovieSearchItemLayoutBinding;
 import com.kunal456k.moviedatabase.interfaces.OnMovieClickListener;
-import com.kunal456k.moviedatabase.models.Movie;
+import com.kunal456k.moviedatabase.models.MovieDetails;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MovieSearchAdapter extends ListAdapter<Movie, MovieSearchAdapter.MovieSearchViewHolder> {
+public class MovieSearchAdapter extends ListAdapter<MovieDetails, MovieSearchAdapter.MovieSearchViewHolder> {
 
-    private static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
+    private static final DiffUtil.ItemCallback<MovieDetails> DIFF_CALLBACK = new DiffUtil.ItemCallback<MovieDetails>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+        public boolean areItemsTheSame(@NonNull MovieDetails oldItem, @NonNull MovieDetails newItem) {
             return oldItem.getMovieId() == newItem.getMovieId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+        public boolean areContentsTheSame(@NonNull MovieDetails oldItem, @NonNull MovieDetails newItem) {
             return oldItem.getMovieId() == newItem.getMovieId() &&
                     oldItem.getRating() == newItem.getRating() &&
                     oldItem.getTitle().equals(newItem.getTitle());
@@ -53,7 +53,7 @@ public class MovieSearchAdapter extends ListAdapter<Movie, MovieSearchAdapter.Mo
         holder.binding.setMovie(getItem(position));
     }
 
-    public void update(List<Movie> movies){
+    public void update(List<MovieDetails> movies){
         submitList(movies);
     }
 

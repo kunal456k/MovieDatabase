@@ -2,7 +2,7 @@ package com.kunal456k.moviedatabase.viewModels;
 
 import androidx.lifecycle.LiveData;
 
-import com.kunal456k.moviedatabase.models.Movie;
+import com.kunal456k.moviedatabase.models.MovieDetails;
 import com.kunal456k.moviedatabase.repository.MoviesRepository;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class NowPlayingViewModel extends MovieViewModel{
         return failedStatus;
     }
 
-    public LiveData<List<Movie>> getNowPlayingMovies(){
+    public LiveData<List<MovieDetails>> getNowPlayingMovies(){
         movies = moviesRepository.nowPlayingMovies;
         moviesRepository.getNowPlaying();
         return movies;
