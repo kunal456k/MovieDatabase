@@ -25,6 +25,11 @@ public class MovieDetailsViewModel {
         return movieDetailsLiveData;
     }
 
+    public LiveData<MovieDetails> getMovieDetails(){
+        movieDetailsLiveData = moviesRepository.movieDetailsLiveData;
+        return movieDetailsLiveData;
+    }
+
     public void clearMovieDetails() {
         if (movieDetailsLiveData != null){
             movieDetailsLiveData.postValue(null);

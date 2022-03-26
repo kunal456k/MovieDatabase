@@ -2,7 +2,7 @@ package com.kunal456k.moviedatabase.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ProductionCompanies {
+public class ProductionCompany {
     @SerializedName("id")
     private int id;
     @SerializedName("name")

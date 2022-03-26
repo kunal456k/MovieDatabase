@@ -55,7 +55,7 @@ public class HomePage extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("movieId", movieId);
             getOnBackPressedDispatcher().addCallback(this, movieNavigationViewModel.onBackPressedCallback);
-            navController.navigate(R.id.movie_details_fragment, bundle);
+            navController.navigate(R.id.movie_page_fragment, bundle);
         }
     }
 

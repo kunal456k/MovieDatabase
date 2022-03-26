@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -16,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kunal456k.moviedatabase.R;
+import com.kunal456k.moviedatabase.databinding.FragmentHomenavigationBinding;
 import com.kunal456k.moviedatabase.viewModels.BottomNavigationViewModel;
 import com.kunal456k.moviedatabase.views.activity.HomePage;
 
@@ -45,21 +44,17 @@ public class HomeNavigationFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_homenavigation, container, false);
+        return init(inflater);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        init(view);
-    }
-
-    private void init(View view) {
+    private View init(LayoutInflater inflater) {
+        FragmentHomenavigationBinding homeNavigationBinding = FragmentHomenavigationBinding.inflate(inflater);
         bottomNavigationViewModel.getNavigationId().observe(getViewLifecycleOwner(), this::navigateFragments);
-        navController = Navigation.findNavController(view.findViewById(R.id.home_navigation_controller));
+        navController = Navigation.findNavController(homeNavigationBinding.getRoot().findViewById(R.id.home_navigation_controller));
+        return homeNavigationBinding.getRoot();
     }
 
     private void navigateFragments(Integer menuId) {

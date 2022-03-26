@@ -8,8 +8,16 @@
     <string name="now_playing">Now Playing</string>
     <string name="movie_image">movie image</string>
     <string name="input_movie_name">Input movie name</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_navigation">Home Navigation</string>
     <string name="movie_details">Movie Details</string>
+    <string name="rating"><b>Rating:</b> %1$.2f (%2$d votes)</string>
+    <string name="release"><b>Release Date:</b> %1$s (%2$s)</string>
+    <string name="original_language"><b>Original Language:</b> %1$s</string>
+    <string name="all_languages"><b>All Release Languages:</b> %1$s</string>
+    <string name="revenue"><b>Revenue:</b> %1$s</string>
+    <string name="adult"><b>Adult:</b> %1$s</string>
+    <string name="generes"><b>Generes:</b> %1$s</string>
+    <string name="popularity"><b>Popularity:</b> %1$.2f</string>
+    <string name="production_companies"><b>Production Companies:</b> %1$s</string>
+    <string name="production_countries"><b>Production Countries:</b> %1$s</string>
 </resources>

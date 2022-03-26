@@ -2,33 +2,92 @@
 <layout>
     <data>
         <variable
-            name="imageUrl"
-            type="java.lang.String" />
+            name="movieDetails"
+            type="com.kunal456k.moviedatabase.models.MovieDetails" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.activity.MovieDetailsPage">
+        tools:context=".views.fragments.MovieDetailsFragment">
 
-        <com.kunal456k.moviedatabase.views.customViews.UrlImageView
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/image_guide"
-            imageUrl="@{imageUrl}"
-            app:posterSize="w780"
-            app:placeHolderSrc="@drawable/place_holder_large"
-            app:brokenImageSrc="@drawable/broken_image_large" />
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/image_guide"
-            app:layout_constraintGuide_percent="0.3"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetails.title}"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="@dimen/movie_details_page_title_size"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetails.overview}"
+                android:textSize="@dimen/movie_details_page_overview_size"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` : @string/rating(movieDetails.rating, movieDetails.voteCount)}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` :@string/release(movieDetails.releaseDate, movieDetails.status)}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` :@string/all_languages(movieDetails.commaSeparatedLanguages ?? `NA`)}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` :@string/revenue(``+ (movieDetails.revenue == 0 ? `NA` : movieDetails.revenue + `$`))}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` :@string/adult(movieDetails.adultMovie ? `Yes` : `No`)}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` :@string/generes(movieDetails.commaSeparatedGeneres ?? `NA`)}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` :@string/production_companies(movieDetails.commaSeparatedCompanies ?? `NA`)}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/movie_details_page_margin_default"
+                android:textSize="@dimen/movie_details_page_normal_size"
+                android:text="@{movieDetails == null ? `` :@string/production_countries(movieDetails.commaSeparatedCountries ?? `NA`)}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>

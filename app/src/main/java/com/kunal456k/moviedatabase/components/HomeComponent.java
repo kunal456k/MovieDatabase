@@ -5,6 +5,7 @@ import com.kunal456k.moviedatabase.views.fragments.BottomNavigationFragment;
 import com.kunal456k.moviedatabase.views.activity.HomePage;
 import com.kunal456k.moviedatabase.views.fragments.HomeNavigationFragment;
 import com.kunal456k.moviedatabase.views.fragments.MovieDetailsFragment;
+import com.kunal456k.moviedatabase.views.fragments.MoviePageFragment;
 import com.kunal456k.moviedatabase.views.fragments.NowPlayingFragment;
 import com.kunal456k.moviedatabase.views.fragments.SearchFragment;
 import com.kunal456k.moviedatabase.views.fragments.TrendingFragment;
@@ -22,5 +23,6 @@ public interface HomeComponent {
     void inject(TrendingFragment trendingFragment);
     void inject(NowPlayingFragment nowPlayingFragment);
     void inject(HomeNavigationFragment homeNavigationFragment);
+    void inject(MoviePageFragment moviePageFragment);
     void inject(MovieDetailsFragment movieDetailsFragment);
 }

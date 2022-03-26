@@ -10,10 +10,10 @@
         android:label="@string/home_navigation"
         tools:layout="@layout/fragment_homenavigation"/>
 
-    <fragment android:id="@+id/movie_details_fragment"
-        android:name="com.kunal456k.moviedatabase.views.fragments.MovieDetailsFragment"
+    <fragment android:id="@+id/movie_page_fragment"
+        android:name="com.kunal456k.moviedatabase.views.fragments.MoviePageFragment"
         android:label="@string/movie_details"
-        tools:layout="@layout/fragment_movie_details">
+        tools:layout="@layout/fragment_movie_page">
         <argument
             android:name="movieId"
             app:argType="integer"

@@ -12,8 +12,8 @@ public class MovieDetails {
     @SerializedName("genres")
     private List<MovieGenre> genres;
     @SerializedName("original_language")
-    private String language;
-    @SerializedName("original_title")
+    private String originalLanguage;
+    @SerializedName("title")
     private String title;
     @SerializedName("overview")
     private String overview;
@@ -24,21 +24,58 @@ public class MovieDetails {
     @SerializedName("backdrop_path")
     private String backdropPath;
     @SerializedName("production_companies")
-    private List<ProductionCompanies> productionCompanies;
+    private List<ProductionCompany> productionCompanies;
     @SerializedName("production_countries")
-    private List<Countries> countries;
+    private List<Country> countries;
     @SerializedName("release_date")
     private String releaseDate;
     @SerializedName("revenue")
     private int revenue;
     @SerializedName("spoken_languages")
-    private List<Languages> languages;
+    private List<Language> languages;
     @SerializedName("status")
     private String status;
     @SerializedName("vote_average")
     private float rating;
     @SerializedName("vote_count")
     private int voteCount;
+
+    private String commaSeparatedGeneres;
+    private String commaSeparatedCompanies;
+    private String commaSeparatedCountries;
+    private String commaSeparatedLanguages;
+
+    public String getCommaSeparatedGeneres() {
+        return commaSeparatedGeneres;
+    }
+
+    public void setCommaSeparatedGeneres(String commaSeparatedGeneres) {
+        this.commaSeparatedGeneres = commaSeparatedGeneres;
+    }
+
+    public String getCommaSeparatedCompanies() {
+        return commaSeparatedCompanies;
+    }
+
+    public void setCommaSeparatedCompanies(String commaSeparatedCompanies) {
+        this.commaSeparatedCompanies = commaSeparatedCompanies;
+    }
+
+    public String getCommaSeparatedCountries() {
+        return commaSeparatedCountries;
+    }
+
+    public void setCommaSeparatedCountries(String commaSeparatedCountries) {
+        this.commaSeparatedCountries = commaSeparatedCountries;
+    }
+
+    public String getCommaSeparatedLanguages() {
+        return commaSeparatedLanguages;
+    }
+
+    public void setCommaSeparatedLanguages(String commaSeparatedLanguages) {
+        this.commaSeparatedLanguages = commaSeparatedLanguages;
+    }
 
     public int getMovieId() {
         return movieId;
@@ -52,8 +89,8 @@ public class MovieDetails {
         return genres;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getOriginalLanguage() {
+        return originalLanguage;
     }
 
     public String getTitle() {
@@ -72,11 +109,11 @@ public class MovieDetails {
         return posterUrl;
     }
 
-    public List<ProductionCompanies> getProductionCompanies() {
+    public List<ProductionCompany> getProductionCompanies() {
         return productionCompanies;
     }
 
-    public List<Countries> getCountries() {
+    public List<Country> getCountries() {
         return countries;
     }
 
@@ -88,7 +125,7 @@ public class MovieDetails {
         return revenue;
     }
 
-    public List<Languages> getLanguages() {
+    public List<Language> getLanguages() {
         return languages;
     }
 

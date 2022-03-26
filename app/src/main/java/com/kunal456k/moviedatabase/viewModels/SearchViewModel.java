@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.kunal456k.moviedatabase.components.ActivityScope;
 import com.kunal456k.moviedatabase.models.Movie;
-import com.kunal456k.moviedatabase.repository.MovieSearchRepository;
+import com.kunal456k.moviedatabase.repository.MoviesRepository;
 
 import java.util.List;
 
@@ -15,21 +15,21 @@ import javax.inject.Inject;
 public class SearchViewModel extends MovieViewModel {
 
     private final MutableLiveData<String> searchInputData = new MutableLiveData<>();
-    private final MovieSearchRepository searchRepository;
+    private final MoviesRepository movieSearchRepository;
 
     @Inject
-    public SearchViewModel(MovieSearchRepository searchRepository){
-        this.searchRepository = searchRepository;
+    public SearchViewModel(MoviesRepository movieSearchRepository){
+        this.movieSearchRepository = movieSearchRepository;
     }
 
     public void onSearchTextChanged(CharSequence search){
         String searchVal = search.toString().trim();
         searchInputData.setValue(searchVal);
-        searchRepository.performSearch(searchVal);
+        movieSearchRepository.performSearch(searchVal);
     }
 
     public LiveData<List<Movie>> getMoviesLiveData(){
-        movies = searchRepository.searchLiveData;
+        movies = movieSearchRepository.movieSearchLiveData;
         return movies;
     }
 
@@ -38,7 +38,7 @@ public class SearchViewModel extends MovieViewModel {
     }
 
     public LiveData<String> getFailedStatus(){
-        failedStatus = searchRepository.failedStatus;
+        failedStatus = movieSearchRepository.failedSearchStatus;
         return failedStatus;
     }
 }

@@ -2,8 +2,8 @@ package com.kunal456k.moviedatabase.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Countries {
-    @SerializedName("iso_3166_1")
+public class Language {
+    @SerializedName("iso_639_1")
     private String isoName;
     @SerializedName("name")
     private String name;

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movie_details_page_title_size">24sp</dimen>
+    <dimen name="movie_details_page_overview_size">20sp</dimen>
+    <dimen name="movie_details_page_normal_size">18sp</dimen>
+    <dimen name="movie_details_page_margin_default">5dp</dimen>
+</resources>

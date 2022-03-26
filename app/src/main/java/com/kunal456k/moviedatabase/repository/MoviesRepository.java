@@ -3,15 +3,23 @@ package com.kunal456k.moviedatabase.repository;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kunal456k.moviedatabase.components.ActivityScope;
+import com.kunal456k.moviedatabase.helpers.ResponseUpdateHelper;
+import com.kunal456k.moviedatabase.models.Country;
+import com.kunal456k.moviedatabase.models.Language;
 import com.kunal456k.moviedatabase.models.Movie;
 import com.kunal456k.moviedatabase.models.MovieDetails;
+import com.kunal456k.moviedatabase.models.MovieGenre;
 import com.kunal456k.moviedatabase.models.NowPlayingResponse;
+import com.kunal456k.moviedatabase.models.ProductionCompany;
+import com.kunal456k.moviedatabase.models.SearchResponse;
 import com.kunal456k.moviedatabase.models.TrendingResponse;
 import com.kunal456k.moviedatabase.services.MovieApi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,6 +39,8 @@ public class MoviesRepository {
     public MutableLiveData<String> failedTrendingStatus = new MutableLiveData<>();
     public MutableLiveData<String> failedNowPlayingStatus = new MutableLiveData<>();
     public MutableLiveData<MovieDetails> movieDetailsLiveData = new MutableLiveData<>();
+    public final MutableLiveData<List<Movie>> movieSearchLiveData = new MutableLiveData<>();
+    public final MutableLiveData<String> failedSearchStatus = new MutableLiveData<>();
 
     @Inject
     public MoviesRepository(MovieApi movieApi){
@@ -108,6 +118,47 @@ public class MoviesRepository {
     }
 
     private void onMovieDetailsSuccess(MovieDetails movieDetails) {
+        if (movieDetails == null){
+            onMovieDetailsError(null);
+            return;
+        }
+        movieDetails = ResponseUpdateHelper.updatedMovieDetailsResponseForBinding(movieDetails);
         movieDetailsLiveData.postValue(movieDetails);
     }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressLint("CheckResult")
+    public void performSearch(String search) {
+        if (search.isEmpty()){
+            Log.d(TAG, "performSearch: remove search results");
+            movieSearchLiveData.postValue(new ArrayList<>());
+            return;
+        }
+        Observable<SearchResponse> responseObservable = movieApi.getSearchResponse(search, "en");
+        responseObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .map(SearchResponse::getMovies).subscribe(this::onSearchSuccess, this::onSearchError);
+    }
+
+    private void onSearchError(Throwable throwable) {
+        if (throwable == null){
+            Log.d(TAG, "onSearchError: null");
+            failedSearchStatus.postValue("No Results Found");
+        }else {
+            Log.d(TAG, "onSearchError: "+throwable.getMessage());
+            throwable.printStackTrace();
+            failedSearchStatus.postValue("Unable to search, Please check internet connection...");
+        }
+        movieSearchLiveData.postValue(new ArrayList<>());
+    }
+
+    private void onSearchSuccess(List<Movie> movies) {
+        if (movies == null || movies.size() == 0){
+            onSearchError(null);
+            return;
+        }
+        failedSearchStatus.postValue("");
+        Log.d(TAG, "onSearchSuccess: "+movies.size());
+        movieSearchLiveData.postValue(movies);
+    }
+
 }
