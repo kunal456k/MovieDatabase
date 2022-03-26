@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.fragments.SearchFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="searchViewModel"
+            type="com.kunal456k.moviedatabase.viewModels.SearchViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Search fragment" />
+        tools:context=".views.fragments.SearchFragment">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|start"
+            android:hint="@string/input_movie_name"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:onTextChanged="@{(text, start, before, count) -> searchViewModel.onSearchTextChanged(text)}"
+            android:textColorHint="#757575"
+            app:layout_constraintBottom_toBottomOf="@id/et_search_guide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.08"
+            android:id="@+id/et_search_guide"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            android:orientation="vertical"
+            android:id="@+id/search_recycler_view"
+            app:layout_constraintTop_toBottomOf="@id/et_search_guide"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/failedStatus"
+            android:text="@{searchViewModel.failedStatus}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

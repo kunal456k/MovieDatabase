@@ -12,9 +12,9 @@ public class ImageLoadHelper {
 
     @NonNull
     @Contract(pure = true)
-    public static String getSmallPosterUrl(String imagePath){
+    public static String getPosterUrl(String imagePath, String posterSize){
         String url = Constants.TMDB_IMAGE_BASE_URL;
-        url += "/w185";
+        url += posterSize;
         url += imagePath;
         return url;
     }

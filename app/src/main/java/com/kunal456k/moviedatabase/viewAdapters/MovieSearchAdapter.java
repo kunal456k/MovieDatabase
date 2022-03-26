@@ -1,5 +1,6 @@
-package com.kunal456k.moviedatabase.views.adapters;
+package com.kunal456k.moviedatabase.viewAdapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,14 +9,14 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kunal456k.moviedatabase.databinding.MovieRecyclerItemLayoutBinding;
+import com.kunal456k.moviedatabase.databinding.MovieSearchItemLayoutBinding;
 import com.kunal456k.moviedatabase.models.Movie;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolder> {
+public class MovieSearchAdapter extends ListAdapter<Movie, MovieSearchAdapter.MovieSearchViewHolder> {
 
     private static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
         @Override
@@ -32,19 +33,19 @@ public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolde
     };
 
     @Inject
-    public MovieAdapter(){
+    protected MovieSearchAdapter() {
         super(DIFF_CALLBACK);
     }
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        MovieRecyclerItemLayoutBinding binding = MovieRecyclerItemLayoutBinding.inflate(LayoutInflater.from(parent.getContext()));
-        return new MovieViewHolder(binding);
+    public MovieSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        MovieSearchItemLayoutBinding binding = MovieSearchItemLayoutBinding.inflate(LayoutInflater.from(parent.getContext()));
+        return new MovieSearchViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieSearchViewHolder holder, int position) {
         holder.binding.setMovie(getItem(position));
     }
 
@@ -52,11 +53,11 @@ public class MovieAdapter extends ListAdapter<Movie, MovieAdapter.MovieViewHolde
         submitList(movies);
     }
 
-    static class MovieViewHolder extends RecyclerView.ViewHolder {
+    static class MovieSearchViewHolder extends RecyclerView.ViewHolder {
 
-        private final MovieRecyclerItemLayoutBinding binding;
+        private final MovieSearchItemLayoutBinding binding;
 
-        public MovieViewHolder(@NonNull MovieRecyclerItemLayoutBinding binding) {
+        public MovieSearchViewHolder(@NonNull MovieSearchItemLayoutBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

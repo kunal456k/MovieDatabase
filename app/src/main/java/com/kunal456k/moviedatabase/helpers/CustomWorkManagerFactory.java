@@ -1,4 +1,4 @@
-package com.kunal456k.moviedatabase;
+package com.kunal456k.moviedatabase.helpers;
 
 import android.content.Context;
 

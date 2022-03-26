@@ -2,7 +2,6 @@ package com.kunal456k.moviedatabase.views.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import com.kunal456k.moviedatabase.databinding.FragmentTrendingBinding;
 import com.kunal456k.moviedatabase.models.Movie;
 import com.kunal456k.moviedatabase.viewModels.TrendingViewModel;
 import com.kunal456k.moviedatabase.views.activity.HomeActivity;
-import com.kunal456k.moviedatabase.views.adapters.MovieAdapter;
+import com.kunal456k.moviedatabase.viewAdapters.MovieAdapter;
 
 import java.util.List;
 

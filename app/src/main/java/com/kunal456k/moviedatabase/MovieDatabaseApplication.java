@@ -7,6 +7,7 @@ import androidx.work.WorkManager;
 
 import com.kunal456k.moviedatabase.components.ApplicationComponent;
 import com.kunal456k.moviedatabase.components.DaggerApplicationComponent;
+import com.kunal456k.moviedatabase.helpers.CustomWorkManagerFactory;
 import com.kunal456k.moviedatabase.modules.AppModule;
 import com.kunal456k.moviedatabase.modules.NetworkModule;
 import com.kunal456k.moviedatabase.modules.WorkerModule;
@@ -17,7 +18,8 @@ public class MovieDatabaseApplication extends Application {
 
     ApplicationComponent applicationComponent;
 
-    @Inject CustomWorkManagerFactory workManagerFactory;
+    @Inject
+    CustomWorkManagerFactory workManagerFactory;
 
     @Override
     public void onCreate() {

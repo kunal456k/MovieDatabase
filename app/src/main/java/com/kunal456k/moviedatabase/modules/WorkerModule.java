@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.work.WorkManager;
 
-import com.kunal456k.moviedatabase.CustomWorkManagerFactory;
+import com.kunal456k.moviedatabase.helpers.CustomWorkManagerFactory;
 
 import javax.inject.Singleton;
 

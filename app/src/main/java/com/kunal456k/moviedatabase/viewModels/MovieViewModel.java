@@ -8,5 +8,5 @@ import java.util.List;
 
 public class MovieViewModel {
     protected LiveData<List<Movie>> movies;
-    protected LiveData<String> failedStatus;
+    public LiveData<String> failedStatus;
 }
