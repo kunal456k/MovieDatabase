@@ -73,8 +73,9 @@ public class MoviePageFragment extends Fragment {
     }
 
     private void onMovieDetails(MovieDetails movieDetails) {
-        if (movieDetails == null) return;
-        binding.setImageUrl(movieDetails.getBackdropPath());
+        String url = null;
+        if (movieDetails != null) url = movieDetails.getBackdropPath();
+        binding.setImageUrl(url);
     }
 
     private int parseArguments() {

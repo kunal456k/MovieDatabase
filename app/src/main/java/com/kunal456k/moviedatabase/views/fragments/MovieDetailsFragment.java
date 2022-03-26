@@ -52,7 +52,6 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     private void onMovieDetails(MovieDetails movieDetails) {
-        if (movieDetails == null) return;
         binding.setMovieDetails(movieDetails);
     }
 }

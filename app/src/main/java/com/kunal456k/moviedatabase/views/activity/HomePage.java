@@ -1,12 +1,15 @@
 package com.kunal456k.moviedatabase.views.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.kunal456k.moviedatabase.Constants;
 import com.kunal456k.moviedatabase.MovieDatabaseApplication;
 import com.kunal456k.moviedatabase.R;
 import com.kunal456k.moviedatabase.components.HomeComponent;
@@ -28,10 +31,35 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         homeComponent = ((MovieDatabaseApplication)getApplication()).getApplicationComponent().getHomeComponent();
         homeComponent.inject(this);
         setContentView(R.layout.activity_main);
         init();
+        handleIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent: ");
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (intent.getAction() == null) return;
+        if (!intent.getAction().equals(Constants.DEMO_MOVIE_DEEPLINK_ACTION)) return;
+        Uri data = intent.getData();
+        if (data == null) return;
+        String movieIdArg = data.getQueryParameter("movieId");
+        if (movieIdArg == null || movieIdArg.isEmpty()) return;
+        try {
+            int movieId = Integer.parseInt(movieIdArg);
+            if (movieId <= 0) return;
+            onMovieSelected(movieId);
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
     }
 
     private void init() {

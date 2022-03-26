@@ -6,4 +6,5 @@ public class Constants {
     public static final int NETWORK_CACHE_SIZE = 10 * 1024 * 1024; //10MB
     public static final String TMDB_AUTH_KEY = "";
     public static final String RESPONSE_DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DEMO_MOVIE_DEEPLINK_ACTION = "com.kunal456k.moviedatabase.MOVIE";
 }

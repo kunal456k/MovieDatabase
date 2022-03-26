@@ -20,4 +20,5 @@
     <string name="popularity"><b>Popularity:</b> %1$.2f</string>
     <string name="production_companies"><b>Production Companies:</b> %1$s</string>
     <string name="production_countries"><b>Production Countries:</b> %1$s</string>
+    <string name="demo_deeplink">Demo movie database deeplink</string>
 </resources>

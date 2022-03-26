@@ -17,9 +17,7 @@ public class MovieNavigationViewModel extends ViewModel {
     public final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
         @Override
         public void handleOnBackPressed() {
-            if (movieIdData.getValue() != null && movieIdData.getValue() != 0){
-                gotoHome();
-            }
+            gotoHome();
         }
     };
 

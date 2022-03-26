@@ -115,6 +115,7 @@ public class MoviesRepository {
 
     private void onMovieDetailsError(Throwable throwable) {
         Log.d(TAG, "onMovieDetailsError: unable to fetch movie details");
+        movieDetailsLiveData.postValue(null);
     }
 
     private void onMovieDetailsSuccess(MovieDetails movieDetails) {
@@ -122,7 +123,7 @@ public class MoviesRepository {
             onMovieDetailsError(null);
             return;
         }
-        movieDetails = ResponseUpdateHelper.updatedMovieDetailsResponseForBinding(movieDetails);
+        ResponseUpdateHelper.updatedMovieDetailsResponseForBinding(movieDetails);
         movieDetailsLiveData.postValue(movieDetails);
     }
 

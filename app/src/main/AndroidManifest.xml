@@ -16,11 +16,19 @@
         <activity
             android:name=".views.activity.HomePage"
             android:exported="true"
+            android:launchMode="singleTop"
             android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:label="@string/demo_deeplink">
+                <action android:name="com.kunal456k.moviedatabase.MOVIE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="demolink"
+                    android:host="moviedatabase"
+                    android:pathPrefix="/movie"/>
             </intent-filter>
         </activity>
 
