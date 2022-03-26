@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="movieDetails"
-            type="com.kunal456k.moviedatabase.models.MovieDetails" />
+            name="movieDetailsViewModel"
+            type="com.kunal456k.moviedatabase.viewModels.MovieDetailsViewModel" />
     </data>
     <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -17,9 +17,14 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetailsViewModel.failedStatus}"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{movieDetails.title}"
+                android:text="@{movieDetailsViewModel.movieDetails.title}"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="@dimen/movie_details_page_title_size"
@@ -28,7 +33,7 @@
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{movieDetails.overview}"
+                android:text="@{movieDetailsViewModel.movieDetails.overview}"
                 android:textSize="@dimen/movie_details_page_overview_size"/>
 
             <TextView
@@ -36,56 +41,56 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` : @string/rating(movieDetails.rating, movieDetails.voteCount)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` : @string/rating(movieDetailsViewModel.movieDetails.rating, movieDetailsViewModel.movieDetails.voteCount)}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` :@string/release(movieDetails.releaseDate, movieDetails.status)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/release(movieDetailsViewModel.movieDetails.releaseDate, movieDetailsViewModel.movieDetails.status)}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` :@string/all_languages(movieDetails.commaSeparatedLanguages ?? `NA`)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/all_languages(movieDetailsViewModel.movieDetails.commaSeparatedLanguages ?? `NA`)}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` :@string/revenue(``+ (movieDetails.revenue == 0 ? `NA` : movieDetails.revenue + `$`))}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/revenue(``+ (movieDetailsViewModel.movieDetails.revenue == 0 ? `NA` : movieDetailsViewModel.movieDetails.revenue + `$`))}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` :@string/adult(movieDetails.adultMovie ? `Yes` : `No`)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/adult(movieDetailsViewModel.movieDetails.adultMovie ? `Yes` : `No`)}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` :@string/generes(movieDetails.commaSeparatedGeneres ?? `NA`)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/generes(movieDetailsViewModel.movieDetails.commaSeparatedGeneres ?? `NA`)}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` :@string/production_companies(movieDetails.commaSeparatedCompanies ?? `NA`)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/production_companies(movieDetailsViewModel.movieDetails.commaSeparatedCompanies ?? `NA`)}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetails == null ? `` :@string/production_countries(movieDetails.commaSeparatedCountries ?? `NA`)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/production_countries(movieDetailsViewModel.movieDetails.commaSeparatedCountries ?? `NA`)}"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

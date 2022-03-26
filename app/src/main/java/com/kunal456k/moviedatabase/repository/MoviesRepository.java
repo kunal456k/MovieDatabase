@@ -3,18 +3,13 @@ package com.kunal456k.moviedatabase.repository;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kunal456k.moviedatabase.components.ActivityScope;
 import com.kunal456k.moviedatabase.helpers.ResponseUpdateHelper;
-import com.kunal456k.moviedatabase.models.Country;
-import com.kunal456k.moviedatabase.models.Language;
 import com.kunal456k.moviedatabase.models.Movie;
 import com.kunal456k.moviedatabase.models.MovieDetails;
-import com.kunal456k.moviedatabase.models.MovieGenre;
 import com.kunal456k.moviedatabase.models.NowPlayingResponse;
-import com.kunal456k.moviedatabase.models.ProductionCompany;
 import com.kunal456k.moviedatabase.models.SearchResponse;
 import com.kunal456k.moviedatabase.models.TrendingResponse;
 import com.kunal456k.moviedatabase.services.MovieApi;
@@ -33,14 +28,14 @@ public class MoviesRepository {
     private static final String TAG = MoviesRepository.class.getSimpleName();
 
     private final MovieApi movieApi;
-
-    public MutableLiveData<List<Movie>> trendingMovies = new MutableLiveData<>();
-    public MutableLiveData<List<Movie>> nowPlayingMovies = new MutableLiveData<>();
-    public MutableLiveData<String> failedTrendingStatus = new MutableLiveData<>();
-    public MutableLiveData<String> failedNowPlayingStatus = new MutableLiveData<>();
-    public MutableLiveData<MovieDetails> movieDetailsLiveData = new MutableLiveData<>();
+    public final MutableLiveData<List<Movie>> trendingMovies = new MutableLiveData<>();
+    public final MutableLiveData<List<Movie>> nowPlayingMovies = new MutableLiveData<>();
+    public final MutableLiveData<String> failedTrendingStatus = new MutableLiveData<>();
+    public final MutableLiveData<String> failedNowPlayingStatus = new MutableLiveData<>();
+    public final MutableLiveData<MovieDetails> movieDetailsLiveData = new MutableLiveData<>();
     public final MutableLiveData<List<Movie>> movieSearchLiveData = new MutableLiveData<>();
     public final MutableLiveData<String> failedSearchStatus = new MutableLiveData<>();
+    public final MutableLiveData<String> failedMovieDetailsStatus = new MutableLiveData<>();
 
     @Inject
     public MoviesRepository(MovieApi movieApi){
@@ -108,6 +103,7 @@ public class MoviesRepository {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     public void getMovieDetails(int movieId) {
+        failedMovieDetailsStatus.postValue("");
         Observable<MovieDetails> responseObservable = movieApi.getMovieDetails(movieId);
         responseObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onMovieDetailsSuccess, this::onMovieDetailsError);
@@ -116,6 +112,7 @@ public class MoviesRepository {
     private void onMovieDetailsError(Throwable throwable) {
         Log.d(TAG, "onMovieDetailsError: unable to fetch movie details");
         movieDetailsLiveData.postValue(null);
+        failedMovieDetailsStatus.postValue("Unable to load movie details, Please check internet connection");
     }
 
     private void onMovieDetailsSuccess(MovieDetails movieDetails) {
@@ -124,6 +121,7 @@ public class MoviesRepository {
             return;
         }
         ResponseUpdateHelper.updatedMovieDetailsResponseForBinding(movieDetails);
+        failedMovieDetailsStatus.postValue("");
         movieDetailsLiveData.postValue(movieDetails);
     }
 

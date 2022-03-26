@@ -47,11 +47,7 @@ public class MovieDetailsFragment extends Fragment {
     private View init(LayoutInflater inflater) {
         binding = FragmentMovieDetailsBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        movieDetailsViewModel.getMovieDetails().observe(getViewLifecycleOwner(), this::onMovieDetails);
+        binding.setMovieDetailsViewModel(movieDetailsViewModel);
         return binding.getRoot();
-    }
-
-    private void onMovieDetails(MovieDetails movieDetails) {
-        binding.setMovieDetails(movieDetails);
     }
 }

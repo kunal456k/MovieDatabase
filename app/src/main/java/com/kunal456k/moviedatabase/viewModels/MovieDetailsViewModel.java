@@ -13,6 +13,7 @@ public class MovieDetailsViewModel {
     private final MoviesRepository moviesRepository;
 
     private MutableLiveData<MovieDetails> movieDetailsLiveData;
+    private LiveData<String> failedStatus;
 
     @Inject
     public MovieDetailsViewModel(MoviesRepository moviesRepository){
@@ -28,6 +29,11 @@ public class MovieDetailsViewModel {
     public LiveData<MovieDetails> getMovieDetails(){
         movieDetailsLiveData = moviesRepository.movieDetailsLiveData;
         return movieDetailsLiveData;
+    }
+
+    public LiveData<String> getFailedStatus() {
+        failedStatus = moviesRepository.failedMovieDetailsStatus;
+        return failedStatus;
     }
 
     public void clearMovieDetails() {

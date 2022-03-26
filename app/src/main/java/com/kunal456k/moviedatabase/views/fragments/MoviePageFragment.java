@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.kunal456k.moviedatabase.databinding.FragmentMoviePageBinding;
-import com.kunal456k.moviedatabase.models.MovieDetails;
 import com.kunal456k.moviedatabase.viewModels.MovieDetailsViewModel;
 import com.kunal456k.moviedatabase.viewModels.MovieNavigationViewModel;
 import com.kunal456k.moviedatabase.views.activity.HomePage;
@@ -22,8 +21,6 @@ public class MoviePageFragment extends Fragment {
 
     @Inject MovieNavigationViewModel movieNavigationViewModel;
     @Inject MovieDetailsViewModel movieDetailsViewModel;
-
-    private FragmentMoviePageBinding binding;
 
     public MoviePageFragment() {
         // Required empty public constructor
@@ -53,29 +50,20 @@ public class MoviePageFragment extends Fragment {
     }
 
     private View init(LayoutInflater inflater) {
-        binding = FragmentMoviePageBinding.inflate(inflater);
+        FragmentMoviePageBinding binding = FragmentMoviePageBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         int movieId = parseArguments();
         if (movieId == 0){
             movieNavigationViewModel.gotoHome();
             return binding.getRoot();
         }
+        binding.setMovieDetailsViewModel(movieDetailsViewModel);
         movieNavigationViewModel.getMovieIdData().observe(getViewLifecycleOwner(), this::onMovieIdChanged);
-        movieDetailsViewModel.getMovieDetails(movieId).observe(getViewLifecycleOwner(), this::onMovieDetails);
         return binding.getRoot();
     }
 
     private void onMovieIdChanged(Integer movieId) {
-        if (movieId == 0){
-            binding.setImageUrl(null);
-            movieDetailsViewModel.clearMovieDetails();
-        }
-    }
-
-    private void onMovieDetails(MovieDetails movieDetails) {
-        String url = null;
-        if (movieDetails != null) url = movieDetails.getBackdropPath();
-        binding.setImageUrl(url);
+        movieDetailsViewModel.getMovieDetails(movieId);
     }
 
     private int parseArguments() {
