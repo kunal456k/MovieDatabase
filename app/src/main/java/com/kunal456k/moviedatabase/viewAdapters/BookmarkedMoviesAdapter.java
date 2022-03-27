@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kunal456k.moviedatabase.constants.MovieDiffCallbackConstant;
 import com.kunal456k.moviedatabase.databinding.BookmarkRecyclerItemLayoutBinding;
 import com.kunal456k.moviedatabase.db.entities.Movie;
+import com.kunal456k.moviedatabase.interfaces.OnBookmarkRemovedListener;
 import com.kunal456k.moviedatabase.interfaces.OnMovieClickListener;
 
 import java.util.List;
@@ -17,12 +18,14 @@ import java.util.List;
 public class BookmarkedMoviesAdapter extends ListAdapter<Movie, BookmarkedMoviesAdapter.BookmarkedMovieViewHolder>{
 
     private final OnMovieClickListener onMovieClickListener;
+    private OnBookmarkRemovedListener onBookmarkRemovedListener;
 
     private List<Movie> movies;
 
-    public BookmarkedMoviesAdapter(OnMovieClickListener onMovieClickListener) {
+    public BookmarkedMoviesAdapter(OnMovieClickListener onMovieClickListener, OnBookmarkRemovedListener onBookmarkRemovedListener) {
         super(MovieDiffCallbackConstant.DIFF_CALLBACK);
         this.onMovieClickListener = onMovieClickListener;
+        this.onBookmarkRemovedListener = onBookmarkRemovedListener;
     }
 
     @NonNull
@@ -44,7 +47,8 @@ public class BookmarkedMoviesAdapter extends ListAdapter<Movie, BookmarkedMovies
 
     public void onBookmarkRemoved(int position) {
         if (position <0 || position >= getCurrentList().size()) return;
-        movies.remove(position);
+        Movie movie = movies.remove(position);
+        onBookmarkRemovedListener.onBookmarkRemoved(movie);
         notifyItemRemoved(position);
     }
 
@@ -52,16 +56,16 @@ public class BookmarkedMoviesAdapter extends ListAdapter<Movie, BookmarkedMovies
         private final BookmarkRecyclerItemLayoutBinding binding;
 
         public BookmarkedMovieViewHolder(@NonNull BookmarkRecyclerItemLayoutBinding binding,
-                                         OnMovieClickListener onMovieClickListener, OnBookmarkRemoveListener onBookmarkRemoveListener) {
+                                         OnMovieClickListener onMovieClickListener, OnBookmarkRemoveSelectedListener onBookmarkRemoveSelectedListener) {
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v -> onMovieClickListener.onMovieClick(binding.getMovie().getMovieId()));
-            binding.bookmarkToggle.setOnCheckedChangeListener((buttonView, isChecked) -> onBookmarkToggleChange(isChecked, onBookmarkRemoveListener));
+            binding.bookmarkToggle.setOnCheckedChangeListener((buttonView, isChecked) -> onBookmarkToggleChange(isChecked, onBookmarkRemoveSelectedListener));
         }
 
-        private void onBookmarkToggleChange(boolean isChecked, OnBookmarkRemoveListener onBookmarkRemoveListener) {
+        private void onBookmarkToggleChange(boolean isChecked, OnBookmarkRemoveSelectedListener onBookmarkRemoveSelectedListener) {
             if (!isChecked){
-                onBookmarkRemoveListener.onBookmarkRemoved(getAdapterPosition());
+                onBookmarkRemoveSelectedListener.onBookmarkRemoved(getAdapterPosition());
             }
         }
 
@@ -70,7 +74,7 @@ public class BookmarkedMoviesAdapter extends ListAdapter<Movie, BookmarkedMovies
         }
     }
 
-    public interface OnBookmarkRemoveListener {
+    public interface OnBookmarkRemoveSelectedListener {
         void onBookmarkRemoved(int position);
     }
 }

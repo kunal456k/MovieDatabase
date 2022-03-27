@@ -285,11 +285,11 @@ public class MoviesRepository {
         bookmarkedMovies.postValue(movies);
     }
 
-    public void updateBookmark(Movie value, boolean isChecked) {
+    public void toggleBookmark(Movie value, boolean addBookmark) {
         Executors.newSingleThreadExecutor().execute(() -> {
             Log.d("test", "onCheckedChanged: 8");
             try {
-                if (isChecked){
+                if (addBookmark){
                     Log.d("test", "onCheckedChanged: 9");
                     Bookmark bookmark = new Bookmark();
                     bookmark.setMovieId(value.getMovieId());
@@ -301,7 +301,7 @@ public class MoviesRepository {
                     bookmark.setBookmarkId(value.getBookmarkId());
                     bookmarkDao.deleteBookmark(bookmark);
                 }
-                bookmarkUpdateComplete(value, isChecked);
+                bookmarkUpdateComplete(value, addBookmark);
             }catch (Exception e){
                 e.printStackTrace();
                 onBookmarkUpdateError(value);
@@ -325,5 +325,15 @@ public class MoviesRepository {
             value.setBookmarkId(0);
         }
         movieDetailsLiveData.postValue(value);
+    }
+
+    public void removeBookmark(Movie movie) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            Log.d("test", "onCheckedChanged: 10");
+            Bookmark bookmark = new Bookmark();
+            bookmark.setMovieId(movie.getMovieId());
+            bookmark.setBookmarkId(movie.getBookmarkId());
+            bookmarkDao.deleteBookmark(bookmark);
+        });
     }
 }

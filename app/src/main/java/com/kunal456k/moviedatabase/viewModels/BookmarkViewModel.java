@@ -24,4 +24,8 @@ public class BookmarkViewModel extends MovieViewModel {
         moviesRepository.getBookmarkedMovies();
         return movies;
     }
+
+    public void removeBookmark(Movie movie) {
+        moviesRepository.removeBookmark(movie);
+    }
 }

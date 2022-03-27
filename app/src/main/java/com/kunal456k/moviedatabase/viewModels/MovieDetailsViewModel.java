@@ -40,6 +40,6 @@ public class MovieDetailsViewModel extends ViewModel{
     }
 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        moviesRepository.updateBookmark(movieDetailsLiveData.getValue(), isChecked);
+        moviesRepository.toggleBookmark(movieDetailsLiveData.getValue(), isChecked);
     }
 }
