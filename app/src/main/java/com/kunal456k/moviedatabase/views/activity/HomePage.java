@@ -13,6 +13,7 @@ import com.kunal456k.moviedatabase.constants.Constants;
 import com.kunal456k.moviedatabase.MovieDatabaseApplication;
 import com.kunal456k.moviedatabase.R;
 import com.kunal456k.moviedatabase.components.HomeComponent;
+import com.kunal456k.moviedatabase.helpers.DeeplinkHelper;
 import com.kunal456k.moviedatabase.viewModels.BottomNavigationViewModel;
 import com.kunal456k.moviedatabase.viewModels.MovieNavigationViewModel;
 
@@ -48,18 +49,10 @@ public class HomePage extends AppCompatActivity {
 
     private void handleIntent(Intent intent) {
         if (intent.getAction() == null) return;
-        if (!intent.getAction().equals(Constants.DEMO_MOVIE_DEEPLINK_ACTION)) return;
-        Uri data = intent.getData();
-        if (data == null) return;
-        String movieIdArg = data.getQueryParameter("movieId");
-        if (movieIdArg == null || movieIdArg.isEmpty()) return;
-        try {
-            int movieId = Integer.parseInt(movieIdArg);
-            if (movieId <= 0) return;
-            onMovieSelected(movieId);
-        }catch (NumberFormatException e){
-            e.printStackTrace();
-        }
+        if (!intent.getAction().equals(DeeplinkHelper.DEMO_MOVIE_DEEPLINK_ACTION)) return;
+        int movieId = DeeplinkHelper.getMovieIdFromDeeplink(intent);
+        if (movieId <= 0) return;
+        onMovieSelected(movieId);
     }
 
     private void init() {

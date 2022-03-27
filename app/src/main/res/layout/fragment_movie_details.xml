@@ -52,6 +52,7 @@
                     android:layout_height="32dp"
                     android:src="@drawable/share"
                     android:id="@+id/share_movie"
+                    android:onClick="@{movieDetailsViewModel::onShareDeepLinkClick}"
                     android:background="@android:color/transparent"
                     android:layout_marginHorizontal="10dp"
                     app:layout_constraintEnd_toStartOf="@id/bookmark_toggle"

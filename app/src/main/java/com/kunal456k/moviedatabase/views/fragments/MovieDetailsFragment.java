@@ -1,6 +1,7 @@
 package com.kunal456k.moviedatabase.views.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,16 @@ public class MovieDetailsFragment extends Fragment {
         binding = FragmentMovieDetailsBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         binding.setMovieDetailsViewModel(movieDetailsViewModel);
+        movieDetailsViewModel.getDeepLinkLiveData().observe(getViewLifecycleOwner(), this::onDeepLinkChanged);
         return binding.getRoot();
+    }
+
+    private void onDeepLinkChanged(String deepLink) {
+        if (deepLink == null || deepLink.isEmpty()) return;
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hey checkout this movie if found " +
+                "interesting in movie database application "+deepLink);
+        requireActivity().startActivity(intent);
     }
 }
