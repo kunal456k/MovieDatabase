@@ -112,7 +112,9 @@ public class MoviesRepository {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
     private void getMovieDetailsFromNetwork(int movieId, Movie movie) {
+        boolean foundInDb = false;
         if (movie != null){
+            foundInDb = true;
             MovieAndBookmark movieAndBookmark = movieDao.getMovieAndBookmarkWithMovie(movie.getMovieId());
             int bookMarkId = movieAndBookmark.bookmark == null ? 0 : movieAndBookmark.bookmark.getBookmarkId();
             movie.setBookmarkId(bookMarkId);
@@ -120,8 +122,9 @@ public class MoviesRepository {
             movieDetailsLiveData.postValue(movie);
         }
         Observable<Movie> movieObservable = movieApi.getMovieDetails(movieId);
+        boolean finalFoundInDb = foundInDb;
         movieObservable.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation())
-                .subscribe(this::onMovieDetailsSuccess, this::onMovieDetailsError);
+                .subscribe(this::onMovieDetailsSuccess, throwable -> onMovieDetailsError(throwable, finalFoundInDb));
     }
 
     private void onMovieDetailsSuccess(Movie movie) {
@@ -133,10 +136,12 @@ public class MoviesRepository {
         movieDetailsLiveData.postValue(movie);
     }
 
-    private void onMovieDetailsError(Throwable throwable) {
+    private void onMovieDetailsError(Throwable throwable, boolean finalFoundInDb) {
         Log.d(TAG, "onMovieDetailsError: unable to fetch movie details");
-        movieDetailsLiveData.postValue(null);
-        failedMovieDetailsStatus.postValue("Unable to load movie details, Please check internet connection");
+        if (!finalFoundInDb){
+            movieDetailsLiveData.postValue(null);
+            failedMovieDetailsStatus.postValue("Unable to load movie details, Please check internet connection");
+        }
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

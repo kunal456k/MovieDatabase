@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:textSize="@dimen/movie_details_page_normal_size"
-                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/release(movieDetailsViewModel.movieDetails.releaseDate, movieDetailsViewModel.movieDetails.status)}"/>
+                android:text="@{movieDetailsViewModel.movieDetails == null ? `` :@string/release(movieDetailsViewModel.movieDetails.releaseDate, movieDetailsViewModel.movieDetails.status ?? `NA`)}"/>
 
             <TextView
                 android:layout_width="match_parent"
