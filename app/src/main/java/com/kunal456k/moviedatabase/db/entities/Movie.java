@@ -50,48 +50,7 @@ public class Movie {
     @SerializedName("vote_count")
     private int voteCount;
 
-    @Ignore
-    private String commaSeparatedGeneres;
-    @Ignore
-    private String commaSeparatedCompanies;
-    @Ignore
-    private String commaSeparatedCountries;
-    @Ignore
-    private String commaSeparatedLanguages;
-
     public Movie() {
-    }
-
-    public String getCommaSeparatedGeneres() {
-        return commaSeparatedGeneres;
-    }
-
-    public void setCommaSeparatedGeneres(String commaSeparatedGeneres) {
-        this.commaSeparatedGeneres = commaSeparatedGeneres;
-    }
-
-    public String getCommaSeparatedCompanies() {
-        return commaSeparatedCompanies;
-    }
-
-    public void setCommaSeparatedCompanies(String commaSeparatedCompanies) {
-        this.commaSeparatedCompanies = commaSeparatedCompanies;
-    }
-
-    public String getCommaSeparatedCountries() {
-        return commaSeparatedCountries;
-    }
-
-    public void setCommaSeparatedCountries(String commaSeparatedCountries) {
-        this.commaSeparatedCountries = commaSeparatedCountries;
-    }
-
-    public String getCommaSeparatedLanguages() {
-        return commaSeparatedLanguages;
-    }
-
-    public void setCommaSeparatedLanguages(String commaSeparatedLanguages) {
-        this.commaSeparatedLanguages = commaSeparatedLanguages;
     }
 
     public int getMovieId() {

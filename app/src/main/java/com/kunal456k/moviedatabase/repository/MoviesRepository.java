@@ -5,9 +5,8 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.kunal456k.moviedatabase.db.dao.MovieDao;
 import com.kunal456k.moviedatabase.components.ActivityScope;
-import com.kunal456k.moviedatabase.helpers.ResponseUpdateHelper;
+import com.kunal456k.moviedatabase.db.dao.MovieDao;
 import com.kunal456k.moviedatabase.db.entities.Movie;
 import com.kunal456k.moviedatabase.models.NowPlayingResponse;
 import com.kunal456k.moviedatabase.models.SearchResponse;
@@ -16,7 +15,6 @@ import com.kunal456k.moviedatabase.services.MovieApi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -123,7 +121,6 @@ public class MoviesRepository {
             onMovieDetailsError(null);
             return;
         }
-        ResponseUpdateHelper.updatedMovieDetailsResponseForBinding(movie);
         failedMovieDetailsStatus.postValue("");
         movieDetailsLiveData.postValue(movie);
     }
