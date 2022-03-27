@@ -1,6 +1,7 @@
 package com.kunal456k.moviedatabase.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.kunal456k.moviedatabase.db.entities.Movie;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class SearchResponse {
     @SerializedName("page")
     private int pageNumber;
     @SerializedName("results")
-    private List<MovieDetails> movies;
+    private List<Movie> movies;
 
     public int getPageNumber() {
         return pageNumber;
@@ -18,11 +19,11 @@ public class SearchResponse {
         this.pageNumber = pageNumber;
     }
 
-    public List<MovieDetails> getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<MovieDetails> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
 }

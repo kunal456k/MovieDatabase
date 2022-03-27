@@ -9,6 +9,7 @@ import com.kunal456k.moviedatabase.components.ApplicationComponent;
 import com.kunal456k.moviedatabase.components.DaggerApplicationComponent;
 import com.kunal456k.moviedatabase.helpers.CustomWorkManagerFactory;
 import com.kunal456k.moviedatabase.modules.AppModule;
+import com.kunal456k.moviedatabase.modules.DatabaseModule;
 import com.kunal456k.moviedatabase.modules.NetworkModule;
 import com.kunal456k.moviedatabase.modules.WorkerModule;
 
@@ -28,6 +29,7 @@ public class MovieDatabaseApplication extends Application {
                 .networkModule(new NetworkModule())
                 .appModule(new AppModule(this))
                 .workerModule(new WorkerModule())
+                .databaseModule(new DatabaseModule())
                 .build();
         applicationComponent.inject(this);
         Configuration configuration = new Configuration.Builder().setWorkerFactory(workManagerFactory)

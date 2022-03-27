@@ -1,16 +1,23 @@
-package com.kunal456k.moviedatabase.models;
+package com.kunal456k.moviedatabase.db.entities;
+
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MovieDetails {
+@Entity
+public class Movie {
+    @PrimaryKey
     @SerializedName("id")
     private int movieId;
     @SerializedName("adult")
     private boolean adultMovie;
+    @Ignore
     @SerializedName("genres")
-    private List<MovieGenre> genres;
+    private List<Genre> genres;
     @SerializedName("original_language")
     private String originalLanguage;
     @SerializedName("title")
@@ -23,14 +30,17 @@ public class MovieDetails {
     private String posterUrl;
     @SerializedName("backdrop_path")
     private String backdropPath;
+    @Ignore
     @SerializedName("production_companies")
-    private List<ProductionCompany> productionCompanies;
+    private List<Company> productionCompanies;
+    @Ignore
     @SerializedName("production_countries")
     private List<Country> countries;
     @SerializedName("release_date")
     private String releaseDate;
     @SerializedName("revenue")
     private int revenue;
+    @Ignore
     @SerializedName("spoken_languages")
     private List<Language> languages;
     @SerializedName("status")
@@ -40,10 +50,17 @@ public class MovieDetails {
     @SerializedName("vote_count")
     private int voteCount;
 
+    @Ignore
     private String commaSeparatedGeneres;
+    @Ignore
     private String commaSeparatedCompanies;
+    @Ignore
     private String commaSeparatedCountries;
+    @Ignore
     private String commaSeparatedLanguages;
+
+    public Movie() {
+    }
 
     public String getCommaSeparatedGeneres() {
         return commaSeparatedGeneres;
@@ -85,7 +102,7 @@ public class MovieDetails {
         return adultMovie;
     }
 
-    public List<MovieGenre> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
@@ -109,7 +126,7 @@ public class MovieDetails {
         return posterUrl;
     }
 
-    public List<ProductionCompany> getProductionCompanies() {
+    public List<Company> getProductionCompanies() {
         return productionCompanies;
     }
 
@@ -143,5 +160,73 @@ public class MovieDetails {
 
     public String getBackdropPath() {
         return backdropPath;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public void setAdultMovie(boolean adultMovie) {
+        this.adultMovie = adultMovie;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public void setProductionCompanies(List<Company> productionCompanies) {
+        this.productionCompanies = productionCompanies;
+    }
+
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 }

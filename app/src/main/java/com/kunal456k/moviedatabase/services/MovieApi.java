@@ -1,6 +1,6 @@
 package com.kunal456k.moviedatabase.services;
 
-import com.kunal456k.moviedatabase.models.MovieDetails;
+import com.kunal456k.moviedatabase.db.entities.Movie;
 import com.kunal456k.moviedatabase.models.NowPlayingResponse;
 import com.kunal456k.moviedatabase.models.SearchResponse;
 import com.kunal456k.moviedatabase.models.TrendingResponse;
@@ -22,5 +22,5 @@ public interface MovieApi {
     Observable<SearchResponse> getSearchResponse(@Query("query") String search, @Query("language") String language);
 
     @GET("movie/{movie_id}")
-    Observable<MovieDetails> getMovieDetails(@Path("movie_id") int movieId);
+    Observable<Movie> getMovieDetails(@Path("movie_id") int movieId);
 }

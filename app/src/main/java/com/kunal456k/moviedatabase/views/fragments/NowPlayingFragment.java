@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.kunal456k.moviedatabase.databinding.FragmentNowPlayingBinding;
-import com.kunal456k.moviedatabase.models.MovieDetails;
+import com.kunal456k.moviedatabase.db.entities.Movie;
 import com.kunal456k.moviedatabase.viewModels.MovieNavigationViewModel;
 import com.kunal456k.moviedatabase.viewModels.NowPlayingViewModel;
 import com.kunal456k.moviedatabase.views.activity.HomePage;
@@ -74,7 +74,7 @@ public class NowPlayingFragment extends Fragment {
         movieNavigationViewModel.setMovieId(movieId);
     }
 
-    private void onNowPlayingMoviesUpdate(List<MovieDetails> movies) {
+    private void onNowPlayingMoviesUpdate(List<Movie> movies) {
         adapter.update(movies);
     }
 }

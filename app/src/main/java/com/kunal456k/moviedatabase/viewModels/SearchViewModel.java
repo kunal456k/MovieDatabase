@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kunal456k.moviedatabase.components.ActivityScope;
-import com.kunal456k.moviedatabase.models.MovieDetails;
+import com.kunal456k.moviedatabase.db.entities.Movie;
 import com.kunal456k.moviedatabase.repository.MoviesRepository;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class SearchViewModel extends MovieViewModel {
         movieSearchRepository.performSearch(searchVal);
     }
 
-    public LiveData<List<MovieDetails>> getMoviesLiveData(){
+    public LiveData<List<Movie>> getMoviesLiveData(){
         movies = movieSearchRepository.movieSearchLiveData;
         return movies;
     }

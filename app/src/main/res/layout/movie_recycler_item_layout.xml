@@ -5,7 +5,7 @@
     <data>
         <variable
             name="movie"
-            type="com.kunal456k.moviedatabase.models.MovieDetails" />
+            type="com.kunal456k.moviedatabase.db.entities.Movie" />
     </data>
 
     <androidx.cardview.widget.CardView

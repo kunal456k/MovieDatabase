@@ -1,8 +1,6 @@
 package com.kunal456k.moviedatabase.viewAdapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,22 +10,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kunal456k.moviedatabase.databinding.MovieSearchItemLayoutBinding;
 import com.kunal456k.moviedatabase.interfaces.OnMovieClickListener;
-import com.kunal456k.moviedatabase.models.MovieDetails;
+import com.kunal456k.moviedatabase.db.entities.Movie;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MovieSearchAdapter extends ListAdapter<MovieDetails, MovieSearchAdapter.MovieSearchViewHolder> {
+public class MovieSearchAdapter extends ListAdapter<Movie, MovieSearchAdapter.MovieSearchViewHolder> {
 
-    private static final DiffUtil.ItemCallback<MovieDetails> DIFF_CALLBACK = new DiffUtil.ItemCallback<MovieDetails>() {
+    private static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
         @Override
-        public boolean areItemsTheSame(@NonNull MovieDetails oldItem, @NonNull MovieDetails newItem) {
+        public boolean areItemsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
             return oldItem.getMovieId() == newItem.getMovieId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull MovieDetails oldItem, @NonNull MovieDetails newItem) {
+        public boolean areContentsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
             return oldItem.getMovieId() == newItem.getMovieId() &&
                     oldItem.getRating() == newItem.getRating() &&
                     oldItem.getTitle().equals(newItem.getTitle());
@@ -53,7 +51,7 @@ public class MovieSearchAdapter extends ListAdapter<MovieDetails, MovieSearchAda
         holder.binding.setMovie(getItem(position));
     }
 
-    public void update(List<MovieDetails> movies){
+    public void update(List<Movie> movies){
         submitList(movies);
     }
 

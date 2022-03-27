@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.kunal456k.moviedatabase.databinding.FragmentSearchBinding;
-import com.kunal456k.moviedatabase.models.MovieDetails;
+import com.kunal456k.moviedatabase.db.entities.Movie;
 import com.kunal456k.moviedatabase.viewAdapters.MovieSearchAdapter;
 import com.kunal456k.moviedatabase.viewModels.MovieNavigationViewModel;
 import com.kunal456k.moviedatabase.viewModels.SearchViewModel;
@@ -68,7 +68,7 @@ public class SearchFragment extends Fragment {
         movieNavigationViewModel.setMovieId(movieId);
     }
 
-    private void onSearchListChanged(List<MovieDetails> movies) {
+    private void onSearchListChanged(List<Movie> movies) {
         movieSearchAdapter.update(movies);
     }
 }

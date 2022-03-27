@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.kunal456k.moviedatabase.databinding.FragmentMovieDetailsBinding;
-import com.kunal456k.moviedatabase.models.MovieDetails;
 import com.kunal456k.moviedatabase.viewModels.MovieDetailsViewModel;
 import com.kunal456k.moviedatabase.views.activity.HomePage;
 
