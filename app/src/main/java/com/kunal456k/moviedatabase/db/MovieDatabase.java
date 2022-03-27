@@ -6,6 +6,15 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.kunal456k.moviedatabase.db.dao.BookmarkDao;
+import com.kunal456k.moviedatabase.db.dao.CompanyDao;
+import com.kunal456k.moviedatabase.db.dao.CompanyMovieCrossRefDao;
+import com.kunal456k.moviedatabase.db.dao.CountryDao;
+import com.kunal456k.moviedatabase.db.dao.CountryMovieCrossRefDao;
+import com.kunal456k.moviedatabase.db.dao.GenreDao;
+import com.kunal456k.moviedatabase.db.dao.GenreMovieCrossRefDao;
+import com.kunal456k.moviedatabase.db.dao.LanguageDao;
+import com.kunal456k.moviedatabase.db.dao.LanguageMovieCrossRefDao;
 import com.kunal456k.moviedatabase.db.dao.MovieDao;
 import com.kunal456k.moviedatabase.db.entities.Bookmark;
 import com.kunal456k.moviedatabase.db.entities.Company;
@@ -29,8 +38,6 @@ public abstract class MovieDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "movie_db";
     private static volatile MovieDatabase instance = null;
 
-    public abstract MovieDao movieDao();
-
     public static MovieDatabase getInstance(Context context) {
         if (instance == null) {
             synchronized (MovieDatabase.class) {
@@ -42,4 +49,15 @@ public abstract class MovieDatabase extends RoomDatabase {
         }
         return instance;
     }
+
+    public abstract GenreDao genreDao();
+    public abstract MovieDao movieDao();
+    public abstract LanguageDao languageDao();
+    public abstract GenreMovieCrossRefDao genreMovieCrossRefDao();
+    public abstract LanguageMovieCrossRefDao languageMovieCrossRefDao();
+    public abstract CompanyDao companyDao();
+    public abstract CompanyMovieCrossRefDao companyMovieCrossRefDao();
+    public abstract CountryDao countryDao();
+    public abstract CountryMovieCrossRefDao countryMovieCrossRefDao();
+    public abstract BookmarkDao bookmarkDao();
 }

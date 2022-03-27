@@ -19,7 +19,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/image_guide"
+                app:layout_constraintEnd_toStartOf="@id/image_barrier"
                 custom:posterSize="w92"
                 custom:placeHolderSrc="@drawable/place_holder_small"
                 custom:brokenImageSrc="@drawable/broken_image_small"
@@ -28,12 +28,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/image_guide"
+                android:id="@+id/image_barrier"
                 app:layout_constraintGuide_percent="0.3" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toEndOf="@id/image_guide"
+                app:layout_constraintStart_toEndOf="@id/image_barrier"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@{movie.title}"
                 app:layout_constraintEnd_toEndOf="parent"/>

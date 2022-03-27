@@ -6,11 +6,9 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kunal456k.moviedatabase.Constants;
+import com.kunal456k.moviedatabase.constants.Constants;
 import com.kunal456k.moviedatabase.helpers.NetworkHelper;
 import com.kunal456k.moviedatabase.services.MovieApi;
-
-import java.io.IOException;
 
 import javax.inject.Singleton;
 

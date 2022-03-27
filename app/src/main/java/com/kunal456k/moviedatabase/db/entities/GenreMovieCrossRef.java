@@ -7,6 +7,11 @@ public class GenreMovieCrossRef {
     int genreId;
     int movieId;
 
+    public GenreMovieCrossRef(int genreId, int movieId) {
+        this.genreId = genreId;
+        this.movieId = movieId;
+    }
+
     public int getGenreId() {
         return genreId;
     }

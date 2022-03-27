@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.kunal456k.moviedatabase.databinding.FragmentMovieDetailsBinding;
 import com.kunal456k.moviedatabase.viewModels.MovieDetailsViewModel;

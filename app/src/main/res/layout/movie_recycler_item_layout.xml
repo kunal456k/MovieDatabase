@@ -31,7 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBaseline_toBottomOf="@id/image_guide"
+                app:layout_constraintBaseline_toBottomOf="@id/image_barrier"
                 android:contentDescription="@string/movie_image" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.85"
-                android:id="@+id/image_guide"/>
+                android:id="@+id/image_barrier"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -55,7 +55,7 @@
                 android:autoSizeMaxTextSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_guide"
+                app:layout_constraintTop_toBottomOf="@id/image_barrier"
                 app:layout_constraintBottom_toTopOf="@id/title_guideline"/>
 
             <androidx.constraintlayout.widget.Guideline

@@ -14,11 +14,12 @@ public class LanguageMovieCrossRef {
         this.movieId = movieId;
     }
 
+    @NonNull
     public String getLanguageName() {
         return languageName;
     }
 
-    public void setLanguageName(String languageName) {
+    public void setLanguageName(@NonNull String languageName) {
         this.languageName = languageName;
     }
 

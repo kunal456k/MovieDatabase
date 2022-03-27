@@ -63,6 +63,8 @@
                     style="@style/toggleButton"
                     android:layout_marginHorizontal="10dp"
                     android:id="@+id/bookmark_toggle"
+                    android:checked="@{movieDetailsViewModel.movieDetails.bookmarkId == 0 ? false : true}"
+                    android:onCheckedChanged="@{movieDetailsViewModel::onCheckedChanged}"
                     android:background="@drawable/bookmark_toggle_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

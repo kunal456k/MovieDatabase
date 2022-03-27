@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="movie"
+            type="com.kunal456k.moviedatabase.db.entities.Movie" />
+    </data>
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardUseCompatPadding="true"
+        android:layout_margin="5dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.kunal456k.moviedatabase.views.customViews.UrlImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/image_barrier"
+                custom:posterSize="w45"
+                android:id="@+id/movie_imageview"
+                custom:placeHolderSrc="@drawable/place_holder_tiny"
+                custom:brokenImageSrc="@drawable/broken_image_tiny"
+                imageUrl="@{movie.posterUrl}"/>
+            <androidx.constraintlayout.widget.Barrier
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="end"
+                android:orientation="vertical"
+                app:constraint_referenced_ids="movie_imageview"
+                android:id="@+id/image_barrier" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/image_barrier"
+                app:layout_constraintEnd_toStartOf="@id/bookmark_barrier"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="5dp"
+                android:text="@{movie.title}"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <androidx.constraintlayout.widget.Barrier
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/bookmark_barrier"
+                app:barrierDirection="start"
+                app:constraint_referenced_ids="bookmark_toggle"/>
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                style="@style/toggleButton"
+                android:gravity="center"
+                android:layout_marginVertical="5dp"
+                android:layout_marginHorizontal="5dp"
+                android:id="@+id/bookmark_toggle"
+                android:checked="true"
+                android:background="@drawable/bookmark_toggle_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

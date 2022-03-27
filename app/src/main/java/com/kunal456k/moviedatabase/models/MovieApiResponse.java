@@ -3,11 +3,9 @@ package com.kunal456k.moviedatabase.models;
 import com.google.gson.annotations.SerializedName;
 import com.kunal456k.moviedatabase.db.entities.Movie;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class TrendingResponse implements Serializable {
-
+public class MovieApiResponse {
     @SerializedName("page")
     private int pageNumber;
     @SerializedName("results")

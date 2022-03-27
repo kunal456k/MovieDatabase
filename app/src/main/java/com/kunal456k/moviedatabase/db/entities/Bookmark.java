@@ -1,9 +1,11 @@
 package com.kunal456k.moviedatabase.db.entities;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(indices = {@Index(value = {"movieId"}, unique = true)})
 public class Bookmark {
 
     @PrimaryKey(autoGenerate = true)

@@ -7,6 +7,11 @@ public class CompanyMovieCrossRef {
     private int companyId;
     private int movieId;
 
+    public CompanyMovieCrossRef(int companyId, int movieId) {
+        this.companyId = companyId;
+        this.movieId = movieId;
+    }
+
     public int getCompanyId() {
         return companyId;
     }

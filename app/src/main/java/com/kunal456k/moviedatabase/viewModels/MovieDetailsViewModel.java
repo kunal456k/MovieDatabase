@@ -1,14 +1,17 @@
 package com.kunal456k.moviedatabase.viewModels;
 
+import android.widget.CompoundButton;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.kunal456k.moviedatabase.db.entities.Movie;
 import com.kunal456k.moviedatabase.repository.MoviesRepository;
 
 import javax.inject.Inject;
 
-public class MovieDetailsViewModel {
+public class MovieDetailsViewModel extends ViewModel{
 
     private final MoviesRepository moviesRepository;
 
@@ -20,10 +23,10 @@ public class MovieDetailsViewModel {
         this.moviesRepository = moviesRepository;
     }
 
-    public LiveData<Movie> getMovieDetails(int movieId){
+    public void getMovieDetails(int movieId){
+        movieDetailsLiveData.postValue(null);
         movieDetailsLiveData = moviesRepository.movieDetailsLiveData;
         moviesRepository.getMovieDetails(movieId);
-        return movieDetailsLiveData;
     }
 
     public LiveData<Movie> getMovieDetails(){
@@ -36,9 +39,7 @@ public class MovieDetailsViewModel {
         return failedStatus;
     }
 
-    public void clearMovieDetails() {
-        if (movieDetailsLiveData != null){
-            movieDetailsLiveData.postValue(null);
-        }
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        moviesRepository.updateBookmark(movieDetailsLiveData.getValue(), isChecked);
     }
 }

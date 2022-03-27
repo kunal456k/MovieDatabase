@@ -5,6 +5,7 @@ import com.kunal456k.moviedatabase.modules.AppModule;
 import com.kunal456k.moviedatabase.modules.DatabaseModule;
 import com.kunal456k.moviedatabase.modules.NetworkModule;
 import com.kunal456k.moviedatabase.modules.WorkerModule;
+import com.kunal456k.moviedatabase.repository.MoviesRepository;
 
 import javax.inject.Singleton;
 
@@ -17,4 +18,5 @@ public interface ApplicationComponent{
     HomeComponent getHomeComponent();
 
     void inject(MovieDatabaseApplication movieDatabaseApplication);
+    void inject(MoviesRepository moviesRepository);
 }

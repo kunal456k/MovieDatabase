@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.kunal456k.moviedatabase.Constants;
+import com.kunal456k.moviedatabase.constants.Constants;
 import com.kunal456k.moviedatabase.MovieDatabaseApplication;
 import com.kunal456k.moviedatabase.R;
 import com.kunal456k.moviedatabase.components.HomeComponent;

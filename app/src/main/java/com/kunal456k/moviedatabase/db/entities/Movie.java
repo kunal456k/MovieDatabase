@@ -49,6 +49,8 @@ public class Movie {
     private float rating;
     @SerializedName("vote_count")
     private int voteCount;
+    @Ignore
+    private int bookmarkId;
 
     public Movie() {
     }
@@ -187,5 +189,13 @@ public class Movie {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    public int getBookmarkId() {
+        return bookmarkId;
+    }
+
+    public void setBookmarkId(int bookmarkId) {
+        this.bookmarkId = bookmarkId;
     }
 }
