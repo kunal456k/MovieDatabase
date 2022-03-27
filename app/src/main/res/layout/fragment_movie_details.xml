@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.kunal456k.moviedatabase.helpers.MovieDetailsConvertHelper"/>
         <variable
@@ -22,14 +22,52 @@
                 android:layout_height="wrap_content"
                 android:text="@{movieDetailsViewModel.failedStatus}"/>
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{movieDetailsViewModel.movieDetails.title}"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="@dimen/movie_details_page_title_size"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{movieDetailsViewModel.movieDetails.title}"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/movie_title_tv"
+                    app:layout_constraintEnd_toStartOf="@id/share_button_barrier"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="@dimen/movie_details_page_title_size"
+                    android:textStyle="bold"/>
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="start"
+                    android:id="@+id/share_button_barrier"
+                    android:orientation="vertical"
+                    android:contentDescription="@string/share_movie"
+                    app:constraint_referenced_ids="share_movie"/>
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/share"
+                    android:id="@+id/share_movie"
+                    android:background="@android:color/transparent"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/bookmark_toggle"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatToggleButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    style="@style/toggleButton"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/bookmark_toggle"
+                    android:background="@drawable/bookmark_toggle_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:layout_margin="@dimen/movie_details_page_margin_default"
                 android:layout_width="match_parent"
