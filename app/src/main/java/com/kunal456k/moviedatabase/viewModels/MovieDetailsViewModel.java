@@ -13,11 +13,14 @@ import com.kunal456k.moviedatabase.repository.MoviesRepository;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class MovieDetailsViewModel extends ViewModel {
 
     private final MoviesRepository moviesRepository;
 
     private final MutableLiveData<String> deepLinkLiveData = new MutableLiveData<>();
+    private final CompositeDisposable compositeDisposable;
 
     private MutableLiveData<Movie> movieDetailsLiveData;
     private LiveData<String> failedStatus;
@@ -25,12 +28,13 @@ public class MovieDetailsViewModel extends ViewModel {
     @Inject
     public MovieDetailsViewModel(MoviesRepository moviesRepository){
         this.moviesRepository = moviesRepository;
+        this.compositeDisposable = new CompositeDisposable();
     }
 
     public void getMovieDetails(int movieId){
         movieDetailsLiveData.postValue(null);
         movieDetailsLiveData = moviesRepository.movieDetailsLiveData;
-        moviesRepository.getMovieDetails(movieId);
+        compositeDisposable.add(moviesRepository.getMovieDetails(movieId));
     }
 
     public LiveData<Movie> getMovieDetails(){
@@ -58,5 +62,11 @@ public class MovieDetailsViewModel extends ViewModel {
         if (movieDetailsLiveData.getValue().getMovieId() == 0) return;
         String deepLink = DeeplinkHelper.createDeeplinkForMovie(movieDetailsLiveData.getValue().getMovieId());
         deepLinkLiveData.setValue(deepLink);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.dispose();
     }
 }

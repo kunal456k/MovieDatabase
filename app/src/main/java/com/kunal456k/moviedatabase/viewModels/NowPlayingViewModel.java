@@ -9,13 +9,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class NowPlayingViewModel extends MovieViewModel{
 
     private final MoviesRepository moviesRepository;
+    private final CompositeDisposable compositeDisposable;
 
     @Inject
     public NowPlayingViewModel(MoviesRepository moviesRepository){
         this.moviesRepository = moviesRepository;
+        this.compositeDisposable = new CompositeDisposable();
     }
 
     public LiveData<String> getFailedNowPlayingStatus() {
@@ -25,7 +29,13 @@ public class NowPlayingViewModel extends MovieViewModel{
 
     public LiveData<List<Movie>> getNowPlayingMovies(){
         movies = moviesRepository.nowPlayingMovies;
-        moviesRepository.getNowPlaying();
+        compositeDisposable.add(moviesRepository.getNowPlaying());
         return movies;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.dispose();
     }
 }

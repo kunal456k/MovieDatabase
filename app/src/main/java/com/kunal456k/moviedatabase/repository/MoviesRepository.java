@@ -39,9 +39,9 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 @Singleton
@@ -79,32 +79,29 @@ public class MoviesRepository {
         ((MovieDatabaseApplication)application).getApplicationComponent().inject(this);
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
-    public void getTrending(){
+    public Disposable getTrending(){
         Observable<MovieApiResponse> observable = movieApi.getTrendingMovies();
         Observable<List<Movie>> listObservable = observable.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation()).map(MovieApiResponse::getMovies);
-        listObservable.subscribe(this::onTrendingFetchSuccess, this::onTrendingFetchError);
+        return listObservable.subscribe(this::onTrendingFetchSuccess, this::onTrendingFetchError);
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
-    public void getNowPlaying() {
+    public Disposable getNowPlaying() {
         Observable<MovieApiResponse> responseObservable = movieApi.getNowPlayingMovies();
-        responseObservable.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation())
+        return responseObservable.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation())
                 .map(MovieApiResponse::getMovies).subscribe(this::onNowPlayingFetchSuccess, this::onNowPlayingFetchError);
     }
 
-    public void getMovieDetails(int movieId) {
-        getMovieDetailsFromDb(movieId);
+    public Disposable getMovieDetails(int movieId) {
+        return getMovieDetailsFromDb(movieId);
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
-    private void getMovieDetailsFromDb(int movieId) {
+    private Disposable getMovieDetailsFromDb(int movieId) {
         failedMovieDetailsStatus.postValue("");
         Single<Movie> movieAndBookmarkSingle = movieDao.getMovieWithId(movieId);
-        movieAndBookmarkSingle.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation())
+        return movieAndBookmarkSingle.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation())
                 .subscribe(movie -> getMovieDetailsFromNetwork(movieId, movie),
                         throwable -> getMovieDetailsFromNetwork(movieId, null));
     }
@@ -146,14 +143,14 @@ public class MoviesRepository {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @SuppressLint("CheckResult")
-    public void performSearch(String search) {
+    public Disposable performSearch(String search) {
         if (search.isEmpty()){
             Log.d(TAG, "performSearch: remove search results");
             movieSearchLiveData.postValue(new ArrayList<>());
-            return;
+            return null;
         }
         Observable<MovieApiResponse> responseObservable = movieApi.getSearchResponse(search, "en");
-        responseObservable.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation())
+        return responseObservable.subscribeOn(Schedulers.io()).observeOn(Schedulers.computation())
                 .map(MovieApiResponse::getMovies).subscribe(this::onSearchSuccess, this::onSearchError);
     }
 

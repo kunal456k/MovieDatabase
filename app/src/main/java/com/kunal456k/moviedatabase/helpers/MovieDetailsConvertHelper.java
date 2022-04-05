@@ -1,5 +1,7 @@
 package com.kunal456k.moviedatabase.helpers;
 
+import androidx.annotation.Nullable;
+
 import com.kunal456k.moviedatabase.db.entities.Company;
 import com.kunal456k.moviedatabase.db.entities.Country;
 import com.kunal456k.moviedatabase.db.entities.Genre;
@@ -13,6 +15,7 @@ public class MovieDetailsConvertHelper {
     private static final int MILLION = THOUSAND * THOUSAND;
     private static final int BILLION = MILLION * THOUSAND;
 
+    @Nullable
     public static String getCommaSeparatedLanguages(List<Language> languages){
         if (languages == null || languages.isEmpty()) return null;
         StringBuilder commaSeparatedLanguages = new StringBuilder();
@@ -25,6 +28,7 @@ public class MovieDetailsConvertHelper {
         return commaSeparatedLanguages.toString();
     }
 
+    @Nullable
     public static String getCommaSeparatedGenres(List<Genre> genres){
         if (genres == null || genres.isEmpty()) return null;
         StringBuilder builder = new StringBuilder();
@@ -37,6 +41,7 @@ public class MovieDetailsConvertHelper {
         return builder.toString();
     }
 
+    @Nullable
     public static String getCommaSeparatedCompanies(List<Company> companies){
         if (companies == null || companies.isEmpty()) return null;
         StringBuilder builder = new StringBuilder();
@@ -49,6 +54,7 @@ public class MovieDetailsConvertHelper {
         return builder.toString();
     }
 
+    @Nullable
     public static String getCommaSeparatedCountries(List<Country> countries){
         if (countries == null || countries.isEmpty()) return null;
         StringBuilder builder = new StringBuilder();
@@ -61,6 +67,7 @@ public class MovieDetailsConvertHelper {
         return builder.toString();
     }
 
+    @Nullable
     public static String getPresentableRevenue(int revenue){
         if (revenue == 0) return null;
         if (revenue < THOUSAND) return ""+revenue+" $";
