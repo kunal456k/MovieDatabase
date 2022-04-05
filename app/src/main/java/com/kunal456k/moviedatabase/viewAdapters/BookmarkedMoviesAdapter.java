@@ -18,7 +18,7 @@ import java.util.List;
 public class BookmarkedMoviesAdapter extends ListAdapter<Movie, BookmarkedMoviesAdapter.BookmarkedMovieViewHolder>{
 
     private final OnMovieClickListener onMovieClickListener;
-    private OnBookmarkRemovedListener onBookmarkRemovedListener;
+    private final OnBookmarkRemovedListener onBookmarkRemovedListener;
 
     private List<Movie> movies;
 

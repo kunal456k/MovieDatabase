@@ -1,7 +1,6 @@
 package com.kunal456k.moviedatabase.views.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.kunal456k.moviedatabase.constants.Constants;
 import com.kunal456k.moviedatabase.MovieDatabaseApplication;
 import com.kunal456k.moviedatabase.R;
 import com.kunal456k.moviedatabase.components.HomeComponent;
@@ -84,7 +82,7 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
